@@ -21,9 +21,9 @@ module.exports.showController = (req, res) => {
             portalId = portalPackageJson.packageDetails.portalId;
             packageId = portalPackageJson.packageDetails.packageId;
             sender = portalPackageJson.packageDetails.sender;
-            return rp.get(sendForm)
+            rp.get(sendForm)
                 .then(form => {
-                    res.send(ejs.render(form, {
+                    return res.send(ejs.render(form, {
                         packageId: portalPackageJson.packageDetails.packageId,
                         files: portalPackageJson.packageDetails.files,
                         redirectUrl: req.body.redirectUrl,
@@ -32,6 +32,6 @@ module.exports.showController = (req, res) => {
                 });
         })
         .catch(err => {
-            res.status(500).send(err.message).end();
+            return res.status(500).send(err.message).end();
         });
 }

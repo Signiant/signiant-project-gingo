@@ -8,5 +8,5 @@ module.exports.processController = (req, res) => {
     const form = querystring.parse(req.body);
     const signedUrl = generateSignedUrl(form.redirectUrl, req.body, registrationKey);
     res.set('Location', signedUrl);
-    res.status(307).end();
+    return res.status(307).end();
 }

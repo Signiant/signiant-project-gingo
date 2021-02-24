@@ -3,17 +3,19 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node app"
+    "start": "nodemon app"
   },
   "dependencies": {
-    "axios": "^0.19.0",
+    "@concentricity/media_shuttle_components": "^1.0.0",
+    "axios": "^0.21.1",
+    "cors": "^2.8.5",
     "crypto": "^1.0.1",
-    "dotenv": "^8.0.0",
-    "ejs": "^2.6.1",
-    "express": "~4.16.0",
+    "dotenv": "^8.2.0",
+    "ejs": "^2.7.4",
+    "express": "^4.16.4",
     "path": "^0.12.7",
-    "querystring": "^0.2.0",
-    "request": "^2.87.0",
-    "request-promise": "^4.2.2"
+    "querystring": "^0.2.1",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6"
   }
 }

@@ -7,8 +7,8 @@ const {sendForm} = require('../../../components/sendForm')
 const {showController} = require('./showController')
 const {processController} = require('./processController')
 
-router.get('/form', sendForm)
-router.post('/show', urlencodedParser, showController)
-router.post('/process', textParser, processController)
+router.use('/form', sendForm)
+router.use('/show', urlencodedParser, showController)
+router.use('/process', textParser, processController)
 
 module.exports = router;

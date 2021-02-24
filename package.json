@@ -9,7 +9,6 @@
   "dependencies": {
     "@concentricity/media_shuttle_components": "^1.0.0",
     "axios": "^0.21.1",
-    "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "dotenv": "^8.2.0",
     "ejs": "^2.7.4",

@@ -1,6 +1,6 @@
 const rp = require('request-promise');
 const ejs = require('ejs');
-const formUrl = process.env.formUrl;
+const registrationKey = process.env.registrationKey;
 const {generateSignedUrl} = require('../../../components/generateSignedUrl')
 const {sendForm} = require('../../../components/sendForm')
 

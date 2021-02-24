@@ -11,6 +11,7 @@ exports.generateSignedUrl = (requestUrl, requestBody, registrationKey) => {
     const algorithmParam = 'X-Sig-Algorithm=SIG1-HMAC-SHA256';
     const dateParam = `X-Sig-Date=${requestTimestamp}`;
     const canonicalQueryString = `${querystring.escape(algorithmParam)}&${querystring.escape(dateParam)}`;
+    console.log('canonicalQueryString:', canonicalQueryString)
     console.log('generateSignedUrl1')
     // Generate the string to sign
     const requestBodyHash = crypto.createHash('sha256').update(requestBody).digest('hex');

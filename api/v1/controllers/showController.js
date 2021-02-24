@@ -2,7 +2,7 @@ const rp = require('request-promise');
 const ejs = require('ejs');
 const registrationKey = process.env.registrationKey;
 const {generateSignedUrl} = require('../../../components/generateSignedUrl')
-const {sendForm} = require('../../../components/sendForm')
+let formUrl = process.env.formUrl;
 
 module.exports.showController = (req, res) => {
     let portalId, packageId;
@@ -21,9 +21,9 @@ module.exports.showController = (req, res) => {
             portalId = portalPackageJson.packageDetails.portalId;
             packageId = portalPackageJson.packageDetails.packageId;
             sender = portalPackageJson.packageDetails.sender;
-            rp.get(sendForm)
+            return rp.get(formUrl)
                 .then(form => {
-                    return res.send(ejs.render(form, {
+                    res.send(ejs.render(form, {
                         packageId: portalPackageJson.packageDetails.packageId,
                         files: portalPackageJson.packageDetails.files,
                         redirectUrl: req.body.redirectUrl,

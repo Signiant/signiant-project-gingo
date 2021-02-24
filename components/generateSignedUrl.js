@@ -3,7 +3,7 @@ const crypto = require('crypto');
 
 exports.generateSignedUrl = (requestUrl, requestBody, registrationKey) => {
     console.log("Generate Signed Url requestUrl:",requestUrl )
-    console.log("Generate Signed Url requestBody:",requestBody )
+    console.log("Generate Signed Url requestBody:",(typeof requestBody) )
     console.log("Generate Signed Url registrationKey:",registrationKey )
     const requestTimestamp = new Date().toISOString();
 

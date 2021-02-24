@@ -9,6 +9,6 @@ const {processController} = require('./processController')
 
 router.use('/form', sendForm)
 router.use('/show', urlencodedParser, showController)
-router.use('/process', textParser, processController)
+router.post('/process', textParser, processController)
 
 module.exports = router;

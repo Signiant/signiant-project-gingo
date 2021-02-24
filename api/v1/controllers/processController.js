@@ -7,6 +7,7 @@ module.exports.processController = (req, res) => {
     setTimeout(()=>{}, 1000)
     console.log('req.body:', req.body)
     const form = querystring.parse(req.body);
+    console.log('form:',form)
     console.log('form.redirectUrl:', form.redirectUrl)
     const signedUrl = generateSignedUrl(form.redirectUrl, req.body, registrationKey);
     console.log('signedUrl:', signedUrl)

@@ -23,7 +23,7 @@ exports.generateSignedUrl = (requestUrl, requestBody, registrationKey) => {
     // Generate request signature
     hmac = crypto.createHmac('sha256', signingKey);
     const signature = hmac.update(stringToSign).digest('hex');
-    console.log('generateSignedUrl3')
+    console.log('generateSignedUrl4')
     // Generate the signed URL
     const signatureParam = `X-Sig-Signature=${signature}`;
     return `${requestUrl}?${algorithmParam}&${dateParam}&${signatureParam}`;

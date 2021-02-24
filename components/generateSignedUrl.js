@@ -12,19 +12,21 @@ exports.generateSignedUrl = (requestUrl, requestBody, registrationKey) => {
     const dateParam = `X-Sig-Date=${requestTimestamp}`;
     const canonicalQueryString = `${querystring.escape(algorithmParam)}&${querystring.escape(dateParam)}`;
     console.log('generateSignedUrl1')
-    // // Generate the string to sign
-    // const requestBodyHash = crypto.createHash('sha256').update(requestBody).digest('hex');
-    // const stringToSign = `${requestTimestamp}\n${requestUrl}\n${canonicalQueryString}\n${requestBodyHash}`;
-    // console.log('generateSignedUrl2')
-    // // Generate the signing key
-    // let hmac = crypto.createHmac('sha256', registrationKey);
-    // const signingKey = hmac.update(requestTimestamp).digest();
-    // console.log('generateSignedUrl3')
-    // // Generate request signature
-    // hmac = crypto.createHmac('sha256', signingKey);
-    // const signature = hmac.update(stringToSign).digest('hex');
-    // console.log('generateSignedUrl4')
-    // // Generate the signed URL
-    // const signatureParam = `X-Sig-Signature=${signature}`;
-    // return `${requestUrl}?${algorithmParam}&${dateParam}&${signatureParam}`;
+    // Generate the string to sign
+    const requestBodyHash = crypto.createHash('sha256').update(requestBody).digest('hex');
+    console.log('requestBodyHash:', requestBodyHash)
+    const stringToSign = `${requestTimestamp}\n${requestUrl}\n${canonicalQueryString}\n${requestBodyHash}`;
+    console.log('stringToSign',stringToSign)
+    console.log('generateSignedUrl2')
+    // Generate the signing key
+    let hmac = crypto.createHmac('sha256', registrationKey);
+    const signingKey = hmac.update(requestTimestamp).digest();
+    console.log('generateSignedUrl3')
+    // Generate request signature
+    hmac = crypto.createHmac('sha256', signingKey);
+    const signature = hmac.update(stringToSign).digest('hex');
+    console.log('generateSignedUrl4')
+    // Generate the signed URL
+    const signatureParam = `X-Sig-Signature=${signature}`;
+    return `${requestUrl}?${algorithmParam}&${dateParam}&${signatureParam}`;
 };

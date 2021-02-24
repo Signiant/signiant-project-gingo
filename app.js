@@ -11,6 +11,7 @@ app.use(express.json());
 app.use('/',
     (req, res, next) => {
         console.log(`${req.method} ${req.originalUrl}`)
+        console.log(`req: ${req}`)
         next()
     }, routes);
 app.use(express.static(path.join(__dirname, 'public')));

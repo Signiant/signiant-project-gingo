@@ -11,6 +11,6 @@ const {webhookParser} = require('./webhookParser')
 router.use('/form', sendForm)
 router.use('/show', urlencodedParser, showController)
 router.post('/process', textParser, processController)
-router.post('/webhook', webhookParser)
+router.post('/webhook', bodyParser.json(), webhookParser)
 
 module.exports = router;

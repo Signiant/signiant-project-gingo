@@ -10,5 +10,6 @@ const {processController} = require('./processController')
 router.use('/form', sendForm)
 router.use('/show', urlencodedParser, showController)
 router.post('/process', textParser, processController)
+router.post('/webhook', webhookParser)
 
 module.exports = router;

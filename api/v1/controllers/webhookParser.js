@@ -1,6 +1,7 @@
 const { sendmail } = require('../../../components/sendMail')
 const { ms } = require('@concentricity/media_shuttle_components')
-
+console.log('typeof ms', (typeof ms))
+console.log('ms:', ms)
 
 module.exports.webhookParser = async (req, res) => {
     let {payload} = req.body

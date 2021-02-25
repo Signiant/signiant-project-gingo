@@ -7,7 +7,7 @@
     "startdev": "nodemon app"
   },
   "dependencies": {
-    "@concentricity/media_shuttle_components": "^1.0.0",
+    "@concentricity/media_shuttle_components": "^1.0.5",
     "axios": "^0.21.1",
     "crypto": "^1.0.1",
     "dotenv": "^8.2.0",

@@ -1,9 +1,13 @@
-const { sendmail } = require('../../../components/sendForm')
+const { sendmail } = require('../../../components/sendMail')
+const ms = require('@concentricity/media_shuttle_components')
+
 
 module.exports.webhookParser = async (req, res) => {
-    console.log('req', req.body)
     let {payload} = req.body
+
+    const emails = await ms.getPortalsUsers(payload.portalDetails.id)
+
     console.log('payload: ', payload)
-    await sendmail('scott', 'jim', 'test', 'test body')
+    await sendmail(emails, 'From Me', 'Test subject', 'Test message body')
     return res.status(200).json(payload)
 }

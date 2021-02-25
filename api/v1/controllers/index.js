@@ -6,6 +6,7 @@ const urlencodedParser = bodyParser.urlencoded({ extended: true });
 const {sendForm} = require('../../../components/sendForm')
 const {showController} = require('./showController')
 const {processController} = require('./processController')
+const {webhookParser} = require('./webhookParser')
 
 router.use('/form', sendForm)
 router.use('/show', urlencodedParser, showController)

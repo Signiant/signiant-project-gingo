@@ -1,5 +1,30 @@
-# Media Shuttle Metadata with Dynamic Form Content
-## Scott Reynolds, June 7 2019
+# Media Shuttle submit with metadata, send download link to portal members
+# project name: gingo
+## Scott Reynolds, Feb 25 2021
+
+**AWS Role and Access Keys**
+
+Create a user and access keys to allow this application access to interact with the necessary AWS resources. ie., User name: signiant_mediashuttle_gingo_user
+
+Create a policy for the following services. ie., policy name: signiant_mediashuttle_gingo_policy
+
+Lambda Policy, API Gateway, SES
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "ses:SendEmail",
+                "ses:SendRawEmail"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+
 
 **This application requires a subscription to Media Shuttle with Metadata.**
 

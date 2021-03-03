@@ -9,7 +9,7 @@ const { generateWebToken } = require('@concentricity/media_shuttle_components')
 
 module.exports.request = async (req, res) => {
 
-    res.status(401).send('Under Construction')
+    res.status(201).json({message: 'Under Construction'})
     // retrieve request packageId
     const { packageId } = req.params
     

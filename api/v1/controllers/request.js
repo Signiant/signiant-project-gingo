@@ -4,8 +4,8 @@ Module workflow:
     2. Generates S2P download token link
     3. Redirects to link at *.mediashuttle.com
 */
-// const { generateWebToken } = require('@concentricity/media_shuttle_components')
-const { generateWebToken } = require('../../../../ms-components/index')
+const { generateWebToken } = require('@concentricity/media_shuttle_components')
+// const { generateWebToken } = require('../../../../ms-components/index')
 
 module.exports.request = async (req, res) => {
 

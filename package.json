@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-ses": "^3.6.1",
-    "@concentricity/media_shuttle_components": "^1.0.6",
+    "@concentricity/media_shuttle_components": "^1.0.7",
     "axios": "^0.21.1",
     "crypto": "^1.0.1",
     "dotenv": "^8.2.0",

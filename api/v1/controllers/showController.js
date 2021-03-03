@@ -1,7 +1,7 @@
 const rp = require('request-promise');
 const ejs = require('ejs');
 const registrationKey = process.env.registrationKey;
-const {generateSignedUrl} = require('../../../components/generateSignedUrl')
+const {generateSignedUrl} = require('@concentricity/media_shuttle_components')
 let formUrl = process.env.formUrl;
 
 module.exports.showController = (req, res) => {

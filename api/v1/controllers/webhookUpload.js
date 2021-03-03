@@ -8,9 +8,9 @@ Module workflow:
 
 const { sendMail } = require('../../../components/sendMail')
 const { portalMapping } = require('../../../components/config')
-// const { getPortals, getPortalsUsers } = require('@concentricity/media_shuttle_components')
-const { getPortals, getPortalsUsers } = require('../../../../ms-components/index')
-const { config } = require('dotenv/types')
+const { getPortals, getPortalsUsers } = require('@concentricity/media_shuttle_components')
+// const { getPortals, getPortalsUsers } = require('../../../../ms-components/index')
+const { config } = require('../../../components/config')
 
 module.exports.webhookParser = async (req, res) => {
 

@@ -15,9 +15,7 @@ const setEmailParams = (emailParams) => {
     // Set the parameters
     const params = {
         Destination: {
-            BccAddresses: [
-                to
-            ]
+            BccAddresses: to
         },
         Message: {
             /* required */
@@ -37,24 +35,23 @@ const setEmailParams = (emailParams) => {
                 Data: subject,
             },
         },
-        Source: from,
-        ReplyToAddresses: [
-            /* more items */
-        ],
+        Source: from
+        // ReplyToAddresses: [
+        //     /* more items */
+        // ],
     };
     return params
 }
 
-module.exports.sendMail = async (to, downloadLink) => {
+module.exports.sendMail = async (emailData) => {
 
-    let params = setEmailParams(to, downloadLink)
+    let params = setEmailParams(emailData)
     
+    console.log('params', params)
     try {
-        const data = await ses.send(new SendEmailCommand(params));
-        console.log("Success", data);
+        const result = await ses.send(new SendEmailCommand(params));
         return { message: 'success'}
-    } catch (err) {
-        console.log("Error", error);
+    } catch (error) {
         return { error }
     }
 }

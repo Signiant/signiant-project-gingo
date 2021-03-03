@@ -10,9 +10,8 @@ const { sendMail } = require('../../../components/sendMail')
 const { portalMapping } = require('../../../components/config')
 const { getPortals, getPortalsUsers } = require('@concentricity/media_shuttle_components')
 // const { getPortals, getPortalsUsers } = require('../../../../ms-components/index')
-const { config } = require('../../../components/config')
 
-module.exports.webhookParser = async (req, res) => {
+module.exports.webhookUpload = async (req, res) => {
 
     // retrieve webhook payload details
     const { payload } = req.body
@@ -40,29 +39,34 @@ module.exports.webhookParser = async (req, res) => {
         try {
             let emailArray = await getPortalsUsers(portalId)
             let emailsOnly = []
-            emailArray.data.map(email => {
-                emailsOnly.push(email.email)
+            emailArray.data.map(item => {
+                emailsOnly.push(item.email)
             })
             return emailsOnly
         } catch (error) {
-            console.log(error)
             return error
         }
     }
     const destinationEmails = await getDestinationEmails(portalId)
 
     // send email to recipients
-
-    let emailParams = {
-        to: destinationEmails,
-        from: mapping.senderEmail,
-        subject: mapping.emailSubject,
-        emailBody: mapping.emailBody + 
-            '/n/n' + mapping.requestLinkUrl + payload.packageDetails.id 
+    const sendEmail = async () => {
+        let emailData = {
+            to: destinationEmails,
+            from: mapping.senderEmail,
+            subject: mapping.emailSubject,
+            emailBody: mapping.emailBody + 
+                '\n\n' + mapping.requestLinkUrl + payload.packageDetails.id 
+            // emailBody: "Hello"
+        }
+    
+        try {
+            return await sendMail(emailData)
+        } catch (error) {
+            return res.status(400).json(error)
+        }
     }
-
-    console.log('emailParams', emailParams)
-
-    // await sendMail(emailParams)
-    return res.status(200).json(payload)
+    
+    const sendMailresult = sendEmail()
+    return res.status(200).json(sendMailresult)
 }

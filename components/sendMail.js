@@ -1,6 +1,6 @@
 require('dotenv').config()
 const { SESClient, SendEmailCommand } = require("@aws-sdk/client-ses");
-const ses = new SESClient({ region: process.env.REGION });
+const ses = new SESClient({ region: process.env.AWS_REGION });
 
 
 const setEmailParams = (emailParams) => {

@@ -50,7 +50,7 @@ module.exports.sendMail = async (emailData) => {
     console.log('params', params)
     try {
         const result = await ses.send(new SendEmailCommand(params));
-        return { message: 'success'}
+        return { result }
     } catch (error) {
         return { error }
     }

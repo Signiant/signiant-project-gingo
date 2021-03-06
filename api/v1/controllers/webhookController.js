@@ -56,9 +56,9 @@ module.exports.webhookController = async (req, res) => {
             from: mapping.senderEmail,
             subject: mapping.emailSubject,
             emailBody: mapping.emailBody + 
-                '\n\n' + mapping.requestLinkUrl + payload.portalDetails.id + '.' + payload.packageDetails.id +
-                '\n\n' + payload
+                '\n\n' + mapping.requestLinkUrl + payload.portalDetails.id + '.' + payload.packageDetails.id
         }
+        
         // console.log(`email data: ${JSON.stringify(emailData)}\nPayload: ${JSON.stringify(payload)}`)
     
         try {

@@ -60,8 +60,8 @@ module.exports.requestController = async (req, res) => {
 
     }
     const downloadToken = await generateWebToken(params)
-    console.log('downloadToken', downloadToken)
+    console.log('downloadToken', downloadToken).data
 
-    res.status(200).redirect(downloadToken)
+    res.status(200).redirect(downloadToken.data)
 
 }

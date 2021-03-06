@@ -19,15 +19,13 @@ module.exports.requestController = async (req, res) => {
 
     // find and retreive upload portal details
     const accountsPortals = await getPortals()
-    console.log('accountPortals', accountPortals)
+    console.log('accountsPortals', accountsPortals)
     const uploadPortal = accountsPortals.data.find( item => {
         return portalId === item.id
     })
     console.log('uploadPortal', uploadPortal)
     const uploadPortalUrl = uploadPortal.url
     console.log('uploadPortalUrl', uploadPortalUrl)
-    
-    return
 
     // retrieve package details
     const uploadPackageDetails = await getPortalsPackages(portalId, packageId)
@@ -36,12 +34,11 @@ module.exports.requestController = async (req, res) => {
     // determine download portal to use for token generation
 
     const mapping = portalMapping.find(item => {
-        return uploadPackageDetails.portalDetails.url === item.uploadUrl
-
+        return uploadPortalUrl === item.uploadUrl
     })
 
-    const downloadPortal = mapping.downloadUrl
-    console.log('downloadPortal', downloadPortal)
+    const downloadPortalUrl = mapping.downloadUrl
+    console.log('downloadPortalUrl', downloadPortalUrl)
 
     // retrieve package files
     const uploadPackageFiles = await getPortalsPackagesFiles(portalId, packageId)
@@ -55,15 +52,16 @@ module.exports.requestController = async (req, res) => {
 
     // get token
     let params = {
-        portalId: portalId,
+        portalUrl: downloadPortalUrl,
         userEmail: 'sreynolds@signiant.com',
         grants: ["download"],
         expiration,
-        files: uploadPackageDetails.data.files
+        files: uploadPackageFiles.data
 
     }
     const downloadToken = await generateWebToken(params)
     console.log('downloadToken', downloadToken)
-    res.status(200).json({url: downloadToken.url})
+
+    res.status(200).redirect(downloadToken)
 
 }

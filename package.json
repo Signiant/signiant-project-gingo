@@ -7,8 +7,8 @@
     "startdev": "nodemon app"
   },
   "dependencies": {
-    "@aws-sdk/client-ses": "^3.7.0",
-    "@concentricity/media_shuttle_components": "^1.0.9",
+    "@aws-sdk/client-ses": "^3.8.0",
+    "@concentricity/media_shuttle_components": "^1.0.10",
     "axios": "^0.21.1",
     "crypto": "^1.0.1",
     "dotenv": "^8.2.0",

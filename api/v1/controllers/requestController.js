@@ -20,7 +20,7 @@ module.exports.requestController = async (req, res) => {
     // find and retreive upload portal details
     const accountsPortals = await getPortals()
     console.log('accountPortals', accountPortals)
-    const uploadPortal = accountsPortals.find( item => {
+    const uploadPortal = accountsPortals.data.find( item => {
         return portalId === item.id
     })
     console.log('uploadPortal', uploadPortal)

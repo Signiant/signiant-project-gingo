@@ -6,8 +6,8 @@ Module workflow:
     3. Redirects to link at *.mediashuttle.com
 */
 const { portalMapping } = require('../../../components/config')
-// const { getPortalsPackages, getPortalsPackagesFiles, generateWebToken } = require('@concentricity/media_shuttle_components')
-const { getPortals, getPortalsPackages, getPortalsPackagesFiles, generateWebToken } = require('../../../../ms-components/index')
+const { getPortals, getPortalsPackages, getPortalsPackagesFiles, generateWebToken } = require('@concentricity/media_shuttle_components')
+//const { getPortals, getPortalsPackages, getPortalsPackagesFiles, generateWebToken } = require('../../../../ms-components/index')
 
 
 module.exports.requestController = async (req, res) => {

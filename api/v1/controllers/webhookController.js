@@ -62,12 +62,14 @@ module.exports.webhookController = async (req, res) => {
         // console.log(`email data: ${JSON.stringify(emailData)}\nPayload: ${JSON.stringify(payload)}`)
     
         try {
+            console.log('sending email:', emailData)
             return await sendMail(emailData)
         } catch (error) {
             return res.status(400).json(error)
         }
     }
     
-    const sendMailresult = sendEmail()
-    return res.status(200).json(sendMailresult)
+    const sendMailResult = sendEmail()
+    console.log('email sent:', sendMailResult)
+    return res.status(200).json(sendMailResult)
 }

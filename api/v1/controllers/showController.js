@@ -5,9 +5,14 @@ const {generateSignedUrl} = require('../../../components/generateSignedUrl')
 let formUrl = process.env.formUrl;
 
 module.exports.showController = (req, res) => {
-    // Extract Media Shuttle package endpoint url from the redirectUrl request body parameter passed by Media Shuttle
-    // You can invoke a GET request on this url to retrieve all known package details prior displaying the metadata form.
-    // The package endpoint url is the same as the redirectUrl without the /metadata suffix.
+    /* 
+    Extract Media Shuttle package endpoint url from the redirectUrl request body parameter passed by Media Shuttle
+    
+    Invoke a GET request on this url to retrieve all known package details prior displaying the metadata form.
+    
+    The package endpoint url is the same as the redirectUrl without the /metadata suffix.
+    */
+
     const portalPackageUrl = req.body.redirectUrl.replace(/\/metadata$/, '');
 
     // Generate a signed url for the above using the portal registration key.

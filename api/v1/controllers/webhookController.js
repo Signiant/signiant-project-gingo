@@ -69,7 +69,7 @@ module.exports.webhookController = async (req, res) => {
         }
     }
     
-    const sendMailResult = sendEmail()
+    const sendMailResult = await sendEmail()
     console.log('email sent:', sendMailResult)
     return res.status(200).json(sendMailResult)
 }

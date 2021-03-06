@@ -1,7 +1,10 @@
+module.exports.config = {
+
+}
 module.exports.portalMapping = [
     {
         name: "Gingo One",
-        uploadUrl: "submit-and-distribute.mediashuttle.com",
+        uploadUrl: "gingo-one-upload.mediashuttle.com",
         downloadUrl: "gingo-one-download.mediashuttle.com",
         expirationHours: 168,
         senderEmail: "sreynolds@signiant.com",

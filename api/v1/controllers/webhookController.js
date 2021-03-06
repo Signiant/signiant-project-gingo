@@ -11,11 +11,11 @@ const { portalMapping } = require('../../../components/config')
 const { getPortals, getPortalsUsers } = require('@concentricity/media_shuttle_components')
 // const { getPortals, getPortalsUsers } = require('../../../../ms-components/index')
 
-module.exports.webhookUpload = async (req, res) => {
+module.exports.webhookController = async (req, res) => {
 
     // retrieve webhook payload details
     const { payload } = req.body
-    // console.log('payload', payload)
+    console.log('payload', payload)
 
     // lookup portal mapping to determine download portal
     const mapping = portalMapping.find(item => {
@@ -32,12 +32,12 @@ module.exports.webhookUpload = async (req, res) => {
         }
     }
 
-    const portalId = await getPortalId(mapping.downloadUrl)
+    const downloadPortalId = await getPortalId(mapping.downloadUrl)
 
     // retrieve destination portal emails
     const getDestinationEmails = async (portalId) => {
         try {
-            let emailArray = await getPortalsUsers(portalId)
+            let emailArray = await getPortalsUsers(downloadPortalId)
             let emailsOnly = []
             emailArray.data.map(item => {
                 emailsOnly.push(item.email)
@@ -47,7 +47,7 @@ module.exports.webhookUpload = async (req, res) => {
             return error
         }
     }
-    const destinationEmails = await getDestinationEmails(portalId)
+    const destinationEmails = await getDestinationEmails(downloadPortalId)
 
     // send email to recipients
     const sendEmail = async () => {
@@ -56,9 +56,10 @@ module.exports.webhookUpload = async (req, res) => {
             from: mapping.senderEmail,
             subject: mapping.emailSubject,
             emailBody: mapping.emailBody + 
-                '\n\n' + mapping.requestLinkUrl + payload.packageDetails.id 
-            // emailBody: "Hello"
+                '\n\n' + mapping.requestLinkUrl + payload.portalDetails.id + '.' + payload.packageDetails.id +
+                '\n\n' + payload
         }
+        // console.log(`email data: ${JSON.stringify(emailData)}\nPayload: ${JSON.stringify(payload)}`)
     
         try {
             return await sendMail(emailData)

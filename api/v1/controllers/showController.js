@@ -28,7 +28,7 @@ module.exports.showController = (req, res) => {
                         // packageId: portalPackageJson.packageDetails.packageId,
                         // files: portalPackageJson.packageDetails.files,
                         redirectUrl: req.body.redirectUrl,
-                        senderEmail: portalPackageJson.packageDetails.senderEmail
+                        senderEmail: portalPackageJson.packageDetails.sender
                     }));
                 });
         })

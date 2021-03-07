@@ -15,7 +15,7 @@ module.exports.webhookController = async (req, res) => {
 
     // retrieve webhook payload details
     const { payload } = req.body
-    console.log('payload', payload)
+    // console.log('payload', payload)
 
     // lookup portal mapping to determine download portal
     const mapping = portalMapping.find(item => {
@@ -52,10 +52,11 @@ module.exports.webhookController = async (req, res) => {
     // retrieve package metadata
     const packageMetadata = await getPortalsPackages(payload.portalDetails.id, payload.packageDetails.id)
 
+    console.log('packageMetadata', packageMetadata)
     let metadata = ''
 
     for (const [key, value] of Object.entries(packageMetadata.metadata)) {
-        metadata =+ key + ': ' + value + '\n';
+        metadata =+ (key + ': ' + value + '\n');
       }
 
       // send email to recipients

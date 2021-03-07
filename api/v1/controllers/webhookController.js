@@ -8,7 +8,7 @@ Module workflow:
 
 const { sendMail } = require('../../../components/sendMail')
 const { portalMapping } = require('../../../components/config')
-const { getPortals, getPortalsUsers } = require('@concentricity/media_shuttle_components')
+const { getPortals, getPortalsUsers, getPortalsPackages } = require('@concentricity/media_shuttle_components')
 // const { getPortals, getPortalsUsers } = require('../../../../ms-components/index')
 
 module.exports.webhookController = async (req, res) => {
@@ -49,13 +49,16 @@ module.exports.webhookController = async (req, res) => {
     }
     const destinationEmails = await getDestinationEmails(downloadPortalId)
 
-    // send email to recipients
+    // retrieve package metadata
+    const packageMetadata = await getPortalsPackages(payload.portalDetails.id, payload.packageDetails.id)
 
     let metadata = ''
-    
-    for (const [key, value] of Object.entries(payload.metadata)) {
+
+    for (const [key, value] of Object.entries(packageMetadata.metadata)) {
         metadata =+ key + ': ' + value + '\n';
       }
+
+      // send email to recipients
 
     let emailBody = mapping.emailBody + '\n\n' +
         metadata + '\n\n' +

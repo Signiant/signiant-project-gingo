@@ -55,7 +55,7 @@ module.exports.webhookController = async (req, res) => {
     console.log('packageData', packageData.data)
     let metadata = ''
 
-    for (const [key, value] of Object.entries(packageData.metadata.data)) {
+    for (const [key, value] of Object.entries(packageData.data.metadata)) {
         metadata = metadata + (`${key}: ${value}\n`);
       }
 

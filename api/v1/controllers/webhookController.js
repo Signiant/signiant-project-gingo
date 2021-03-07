@@ -50,15 +50,25 @@ module.exports.webhookController = async (req, res) => {
     const destinationEmails = await getDestinationEmails(downloadPortalId)
 
     // send email to recipients
+
+    let metadata = ''
+    
+    for (const [key, value] of Object.entries(payload.metadata)) {
+        metadata =+ key + ': ' + value + '\n';
+      }
+
+    let emailBody = mapping.emailBody + '\n\n' +
+        metadata + '\n\n' +
+        mapping.requestLinkUrl + payload.portalDetails.id + '.' + payload.packageDetails.id
+
     const sendEmail = async () => {
         let emailData = {
             to: destinationEmails,
             from: mapping.senderEmail,
             subject: mapping.emailSubject,
-            emailBody: mapping.emailBody + 
-                '\n\n' + mapping.requestLinkUrl + payload.portalDetails.id + '.' + payload.packageDetails.id
+            emailBody
         }
-        
+
         // console.log(`email data: ${JSON.stringify(emailData)}\nPayload: ${JSON.stringify(payload)}`)
     
         try {

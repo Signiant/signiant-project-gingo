@@ -30,28 +30,28 @@
 <form class="form-horizontal" action="process" method="post" id="input-form">
     <input name="redirectUrl" type="hidden" value="<%= redirectUrl %>"/>
     <div class="form-group">
-        <label for="senderemail" class="col-xs-3 control-label">Sender email</label>
+        <label for="sender-email" class="col-xs-3 control-label">Sender email</label>
         <div class="col-xs-9">
-            <input type="text" class="form-control" id="senderemail" name="senderemail" value="<%= senderemail %>" readonly>
+            <input type="text" class="form-control" id="sender-email" name="senderEmail" value="<%= senderEmail %>" readonly>
         </div>
     </div>
     
     <div class="form-group">
-        <label for="sendername" class="col-xs-3 control-label">Sender name</label>
+        <label for="sender-name" class="col-xs-3 control-label">Sender name</label>
         <div class="col-xs-9">
-            <input type="text" class="form-control" id="sendername" name="Sender name" placeholder="First and last name" required>
+            <input type="text" class="form-control" id="sender-name" name="senderName" placeholder="First and last name" required>
         </div>
     </div>
     <div class="form-group">
-        <label for="showfeaturename" class="col-xs-3 control-label">Show/Feature name</label>
+        <label for="show-feature-name" class="col-xs-3 control-label">Show/Feature name</label>
         <div class="col-xs-9">
-            <input type="text" class="form-control" id="showfeaturename" name="Show/Feature name" placeholder="Show/Feature name" required>
+            <input type="text" class="form-control" id="show-feature-name" name="showFeatureName" placeholder="Show/Feature name" required>
         </div>
     </div>
     <div class="form-group">
-        <label for="packagecontents" class="col-xs-3 control-label">Package contents</label>
+        <label for="packagec-ontents" class="col-xs-3 control-label">Package contents</label>
         <div class="col-xs-9">
-            <textarea id="packagecontents" name="Package Contents" class="form-control" placeholder="Description of contents" required></textarea>
+            <textarea id="package-contents" name="packageContents" class="form-control" placeholder="Description of contents" required></textarea>
         </div>
     </div>
     <br/>

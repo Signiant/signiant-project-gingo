@@ -70,7 +70,8 @@ module.exports.webhookController = async (req, res) => {
     const sendEmail = async () => {
         let emailData = {
             to: destinationEmails,
-            from: mapping.senderEmail,
+            // from: mapping.senderEmail,
+            from: packageData.data.metadata.sender,
             subject: mapping.emailSubject,
             emailBody
         }

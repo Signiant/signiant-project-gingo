@@ -45,7 +45,7 @@ module.exports.requestController = async (req, res) => {
     console.log('uploadPackageFiles', uploadPackageFiles)
 
     // convert file paths to storage paths
-    const rootPath = uploadPackageDetails.data.metadata.senderemail + '/' + uploadPackageDetails.data.id + '/'
+    const rootPath = uploadPackageDetails.data.metadata.sender + '/' + uploadPackageDetails.data.id + '/'
     console.log('rootPath', rootPath)
 
     let downloadPackageFiles = []

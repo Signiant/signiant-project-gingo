@@ -50,13 +50,13 @@ module.exports.webhookController = async (req, res) => {
     const destinationEmails = await getDestinationEmails(downloadPortalId)
 
     // retrieve package metadata
-    const packageMetadata = await getPortalsPackages(payload.portalDetails.id, payload.packageDetails.id)
+    const packageData = await getPortalsPackages(payload.portalDetails.id, payload.packageDetails.id)
 
-    console.log('packageMetadata', packageMetadata)
+    console.log('packageData', packageData.data)
     let metadata = ''
 
-    for (const [key, value] of Object.entries(packageMetadata.metadata)) {
-        metadata =+ (key + ': ' + value + '\n');
+    for (const [key, value] of Object.entries(packageData.metadata.data)) {
+        metadata = metadata + (`${key}: ${value}\n`);
       }
 
       // send email to recipients

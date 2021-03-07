@@ -27,8 +27,8 @@ module.exports.showController = (req, res) => {
                     res.send(ejs.render(form, {
                         // packageId: portalPackageJson.packageDetails.packageId,
                         // files: portalPackageJson.packageDetails.files,
-                        'redirectUrl': req.body.redirectUrl,
-                        'sender-email': portalPackageJson.packageDetails.sender
+                        redirectUrl: req.body.redirectUrl,
+                        senderemail: portalPackageJson.packageDetails.sender
                     }));
                 });
         })

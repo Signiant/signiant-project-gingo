@@ -30,61 +30,28 @@
 <form class="form-horizontal" action="process" method="post" id="input-form">
     <input name="redirectUrl" type="hidden" value="<%= redirectUrl %>"/>
     <div class="form-group">
-        <label for="sender" class="col-xs-3 control-label">Sender</label>
+        <label for="senderemail" class="col-xs-3 control-label">Sender email</label>
         <div class="col-xs-9">
-            <input type="text" class="form-control" id="sender" name="sender" value="<%= sender %>" readonly>
+            <input type="text" class="form-control" id="senderemail" name="senderemail" value="<%= sender %>" readonly>
         </div>
     </div>
     
     <div class="form-group">
-        <label for="programTitle" class="col-xs-3 control-label">Program Title</label>
+        <label for="sendername" class="col-xs-3 control-label">Sender name</label>
         <div class="col-xs-9">
-            <input type="text" class="form-control" id="programmeTitle" name="programTitle" placeholder="Program Title">
+            <input type="text" class="form-control" id="sendername" name="sendername" placeholder="first and last name" required>
         </div>
     </div>
     <div class="form-group">
-        <label for="episodeTitle" class="col-xs-3 control-label">Episode Title/No.</label>
+        <label for="showfeaturename" class="col-xs-3 control-label">Show/Feature name</label>
         <div class="col-xs-9">
-            <input type="text" class="form-control" id="episodeTitle" name="episodeTitle" placeholder="Episode Title">
+            <input type="text" class="form-control" id="showfeaturename" name="showfeaturename" placeholder="Show/Feature name">
         </div>
     </div>
     <div class="form-group">
-        <label for="synopsis" class="col-xs-3 control-label">Synopsis</label>
+        <label for="packagecontents" class="col-xs-3 control-label">Package contents</label>
         <div class="col-xs-9">
-            <textarea id="synopsis" name="synopsis" class="form-control" placeholder="Synopsis"></textarea>
-        </div>
-    </div>
-    <%files.forEach(function(file){ %>
-    <div class="form-group">
-        <label for="<%= file.fileName %>" class="col-xs-3 control-label"><%= file.fileName %></label>
-        <div class="col-xs-9">
-            <select id="<%= file.fileName %>" name="<%= file.fileName %>" class="form-control">
-                <option value="" default selected></option>
-                <option value="video">Video</option>
-                <option value="audio">Audio</option>
-                <option value="story_art">Story Art</option>
-                <option value=subtitles>Subtitles</option>
-                <option value="accessibility_file">Accessibility Files</option>
-            </select>
-        </div>
-    </div>
-    <% }); %>
-    <div class="form-group">
-        <label for="originator" class="col-xs-3 control-label">Originator</label>
-        <div class="col-xs-9">
-            <input type="text" class="form-control" id="originator" name="originator" placeholder="Originator">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="distributor" class="col-xs-3 control-label">Distributor</label>
-        <div class="col-xs-9">
-            <input type="text" class="form-control" id="distributor" name="distributor" placeholder="Distributor">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="packageName" class="col-xs-3 control-label">Package ID</label>
-        <div class="col-xs-9">
-            <input type="text" class="form-control" id="packageName" name="packageName" value="<%= packageId %>" readonly>
+            <textarea id="packagecontents" name="packagecontents" class="form-control" placeholder="description of contents"></textarea>
         </div>
     </div>
     <br/>

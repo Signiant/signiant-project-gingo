@@ -22,16 +22,13 @@ module.exports.showController = (req, res) => {
     rp.get(signedPortalPackageUrl)
         .then(portalPackage => {
             let portalPackageJson = JSON.parse(portalPackage);
-            let portalId = portalPackageJson.packageDetails.portalId;
-            let packageId = portalPackageJson.packageDetails.packageId;
-            let sender = portalPackageJson.packageDetails.sender;
             return rp.get(formUrl)
                 .then(form => {
                     res.send(ejs.render(form, {
-                        packageId: portalPackageJson.packageDetails.packageId,
-                        files: portalPackageJson.packageDetails.files,
-                        redirectUrl: req.body.redirectUrl,
-                        sender: portalPackageJson.packageDetails.sender
+                        // packageId: portalPackageJson.packageDetails.packageId,
+                        // files: portalPackageJson.packageDetails.files,
+                        // redirectUrl: req.body.redirectUrl,
+                        senderemail: portalPackageJson.packageDetails.sender
                     }));
                 });
         })

@@ -59,12 +59,12 @@ module.exports.webhookController = async (req, res) => {
         metadata = metadata + (`${key}: ${value}\n`);
       }
 
-      // send email to recipients
+    // send email to recipients
 
     let emailBody =  
         'File information:\n\n' + 
         metadata + '\n\n' +
-        mapping.emailBody + '\n\n' +
+        mapping.emailBody + '\n' +
         mapping.requestLinkUrl + payload.portalDetails.id + '.' + payload.packageDetails.id
 
     const sendEmail = async () => {

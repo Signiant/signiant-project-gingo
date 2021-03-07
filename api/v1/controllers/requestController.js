@@ -20,7 +20,7 @@ module.exports.requestController = async (req, res) => {
     // find and retreive upload portal details
     const accountsPortals = await getPortals()
     console.log('accountsPortals', accountsPortals)
-    const uploadPortal = accountsPortals.data.find( item => {
+    const uploadPortal = accountsPortals.data.find(item => {
         return portalId === item.id
     })
     console.log('uploadPortal', uploadPortal)
@@ -30,7 +30,7 @@ module.exports.requestController = async (req, res) => {
     // retrieve package details
     const uploadPackageDetails = await getPortalsPackages(portalId, packageId)
     console.log('uploadPackageDetails', uploadPackageDetails)
-    
+
     // determine download portal to use for token generation
 
     const mapping = portalMapping.find(item => {
@@ -44,11 +44,31 @@ module.exports.requestController = async (req, res) => {
     const uploadPackageFiles = await getPortalsPackagesFiles(portalId, packageId)
     console.log('uploadPackageFiles', uploadPackageFiles)
 
-    // generate S2P linkc
+    // convert file paths to storage paths
+    const rootPath = uploadPackageDetails.data.metadata.sender + '/' + uploadPackageDetails.data.id + '/'
+    console.log('rootPath', rootPath)
 
-    // determine upload portals expiration criteria
-    let expiration = new Date()
-    expiration.setSeconds(expiration.getSeconds() + 10000);
+    let downloadPackageFiles = []
+    
+    uploadPackageFiles.data.map(item => {
+        let n = item.path.split("/");
+        downloadPackageFiles.push({
+            path: rootPath + n[n.length - 1],
+            isDirectory: item.isDirectory,
+            size: item.size
+        })
+    })
+
+    console.log('downloadPackageFiles', downloadPackageFiles)
+
+
+
+// generate S2P linkc
+
+// determine upload portals expiration criteria
+
+let expiration = new Date()
+expiration.setSeconds(expiration.getSeconds() + 10000);
 
     // get token
     let params = {
@@ -56,7 +76,7 @@ module.exports.requestController = async (req, res) => {
         userEmail: 'sreynolds@signiant.com',
         grants: ["download"],
         expiration,
-        files: uploadPackageFiles.data
+        files: downloadPackageFiles
 
     }
     const downloadToken = await generateWebToken(params)

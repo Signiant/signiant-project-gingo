@@ -9,7 +9,7 @@ module.exports.portalMapping = [
         expirationHours: 168,
         senderEmail: "sreynolds@signiant.com",
         senderName: "Scott Reynolds",
-        emailSubject: "You have files available for Gingo One",
+        emailSubject: "Gingo One has new files available to download.",
         emailBody: "Click the link to initiate the download.",
         requestLinkUrl: "https://ms-metadata-distribute.herokuapp.com/request/"
     }

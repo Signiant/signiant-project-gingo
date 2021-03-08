@@ -64,7 +64,7 @@ module.exports.webhookController = async (req, res) => {
 
     let metadataToString = ''
     for (const [key, value] of Object.entries(metadataFormatted)) {
-        metadataToString = metadataToString + (`${key}: ${value}\n`);
+        metadataToString += (`${key}: ${value}\n`);
     }
 
     console.log('metadataFormatted:', metadataFormatted)

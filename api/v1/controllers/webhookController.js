@@ -60,10 +60,10 @@ module.exports.webhookController = async (req, res) => {
 
     // standardize order of metadata keys
     let metadataFormatted = {
-        'Sender name': packageData.metadata.data.senderName,
-        'Sender email': packageData.metadata.data.senderEmail,
-        'Show/Feature name': packageData.metadata.data.showFeatureName,
-        'Package contents': packageData.metadata.data.packageContents
+        'Sender name': packageData.data.metadata.senderName,
+        'Sender email': packageData.data.metadata.senderEmail,
+        'Show/Feature name': packageData.data.metadata.showFeatureName,
+        'Package contents': packageData.data.metadata.packageContents
     }
 
         // send email to recipients

@@ -52,11 +52,7 @@ module.exports.webhookController = async (req, res) => {
     // retrieve package metadata
     const packageData = await getPortalsPackages(payload.portalDetails.id, payload.packageDetails.id)
 
-    console.log('packageData', packageData.data)
-
-    // for (const [key, value] of Object.entries(packageData.data.metadata)) {
-    //     metadata = metadata + (`${key}: ${value}\n`);
-    // }
+    console.log('packageData.data:', packageData.data)
 
     // standardize order of metadata keys
     let metadataFormatted = {
@@ -66,13 +62,21 @@ module.exports.webhookController = async (req, res) => {
         'Package contents': packageData.data.metadata.packageContents
     }
 
-        // send email to recipients
+    let metadataToString = ''
+    for (const [key, value] of Object.entries(metadataFormatted)) {
+        metadataToString = metadataToString + (`${key}: ${value}\n`);
+    }
 
-        let emailBody =
-            'File information:\n\n' +
-            metadataFormatted + '\n\n' +
-            mapping.emailBody + '\n' +
-            mapping.requestLinkUrl + payload.portalDetails.id + '.' + payload.packageDetails.id
+    console.log('metadataFormatted:', metadataFormatted)
+    console.log('metadataToString:', metadataToString)
+
+    // send email to recipients
+
+    let emailBody =
+        'File information:\n\n' +
+        metadataToString + '\n\n' +
+        mapping.emailBody + '\n' +
+        mapping.requestLinkUrl + payload.portalDetails.id + '.' + payload.packageDetails.id
 
     const sendEmail = async () => {
         let emailData = {

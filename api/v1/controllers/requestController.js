@@ -7,49 +7,40 @@ Module workflow:
 */
 const { portalMapping } = require('../../../components/config')
 const { getPortals, getPortalsPackages, getPortalsPackagesFiles, generateWebToken } = require('@concentricity/media_shuttle_components')
-//const { getPortals, getPortalsPackages, getPortalsPackagesFiles, generateWebToken } = require('../../../../ms-components/index')
-
 
 module.exports.requestController = async (req, res) => {
-    console.log(`req.parms: ${JSON.stringify(req.params)}`)
+
+    // extract the keys from formatted email request format: /request/:key (portalId.packageId)
     const portalId = req.params.key.substring(0, 36)
-    console.log(`portalId: ${portalId}`)
     const packageId = req.params.key.substring(37, 59)
-    console.log(`packageId: ${packageId}`)
 
     // find and retreive upload portal details
     const accountsPortals = await getPortals()
-    console.log('accountsPortals', accountsPortals)
     const uploadPortal = accountsPortals.data.find(item => {
         return portalId === item.id
     })
-    console.log('uploadPortal', uploadPortal)
     const uploadPortalUrl = uploadPortal.url
-    console.log('uploadPortalUrl', uploadPortalUrl)
 
-    // retrieve package details
+    // retrieve package details including metadata
     const uploadPackageDetails = await getPortalsPackages(portalId, packageId)
-    console.log('uploadPackageDetails', uploadPackageDetails)
 
     // determine download portal to use for token generation
-
     const mapping = portalMapping.find(item => {
         return uploadPortalUrl === item.uploadUrl
     })
-
     const downloadPortalUrl = mapping.downloadUrl
-    console.log('downloadPortalUrl', downloadPortalUrl)
 
-    // retrieve package files
+    // retrieve package files array
     const uploadPackageFiles = await getPortalsPackagesFiles(portalId, packageId)
-    console.log('uploadPackageFiles', uploadPackageFiles)
 
-    // convert file paths to storage paths
+    /*
+    Convert file paths to storage paths.
+    Uploaded files include the original local disk path. Download paths are in the format senderEmail/packageId/file-folderName
+    */
     const rootPath = uploadPackageDetails.data.metadata.senderEmail + '/' + uploadPackageDetails.data.id + '/'
-    console.log('rootPath', rootPath)
 
     let downloadPackageFiles = []
-    
+
     uploadPackageFiles.data.map(item => {
         let n = item.path.split("/");
         downloadPackageFiles.push({
@@ -59,25 +50,25 @@ module.exports.requestController = async (req, res) => {
         })
     })
 
-// generate S2P linkc
+    // determine upload portals expiration criteria
+    // requires more work to calculate dynamic expiration based on config file
+    let expiration = new Date()
+    expiration.setSeconds(expiration.getSeconds() + 10000);
 
-// determine upload portals expiration criteria
-
-let expiration = new Date()
-expiration.setSeconds(expiration.getSeconds() + 10000);
-
-    // get token
+    // retrieve download token
     let params = {
         portalUrl: downloadPortalUrl,
         userEmail: 'sreynolds@signiant.com',
         grants: ["download"],
         expiration,
         files: downloadPackageFiles
-
     }
-    const downloadToken = await generateWebToken(params)
-    console.log('downloadToken', downloadToken)
 
-    res.status(200).redirect(downloadToken.data)
+    try {
+        const downloadToken = await generateWebToken(params)
+        res.status(200).redirect(downloadToken.data)
+    } catch (error) {
+        res.status(400).JSON(error)
+    }
 
 }

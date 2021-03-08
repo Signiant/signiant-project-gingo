@@ -9,13 +9,12 @@ Module workflow:
 const { sendMail } = require('../../../components/sendMail')
 const { portalMapping } = require('../../../components/config')
 const { getPortals, getPortalsUsers, getPortalsPackages } = require('@concentricity/media_shuttle_components')
-// const { getPortals, getPortalsUsers } = require('../../../../ms-components/index')
 
 module.exports.webhookController = async (req, res) => {
 
     // retrieve webhook payload details
     const { payload } = req.body
-    // console.log('payload', payload)
+    console.log('payload', payload)
 
     // lookup portal mapping to determine download portal
     const mapping = portalMapping.find(item => {
@@ -50,9 +49,11 @@ module.exports.webhookController = async (req, res) => {
     const destinationEmails = await getDestinationEmails(downloadPortalId)
 
     // retrieve package metadata
-    const packageData = await getPortalsPackages(payload.portalDetails.id, payload.packageDetails.id)
-
-    console.log('packageData.data:', packageData.data)
+    try {
+        const packageData = await getPortalsPackages(payload.portalDetails.id, payload.packageDetails.id)
+    } catch (error) {
+        return res.status(400).json(error)
+    }
 
     // standardize order of metadata keys
     let metadataFormatted = {
@@ -62,18 +63,15 @@ module.exports.webhookController = async (req, res) => {
         'Package contents': packageData.data.metadata.packageContents
     }
 
+    // convert JSON to string format
     let metadataToString = ''
     for (const [key, value] of Object.entries(metadataFormatted)) {
         metadataToString += (`${key}: ${value}\n`);
     }
 
-    console.log('metadataFormatted:', metadataFormatted)
-    console.log('metadataToString:', metadataToString)
-
     // send email to recipients
-
     let emailBody =
-        'File information:\n\n' +
+        'Package metadata:\n\n' +
         metadataToString + '\n\n' +
         mapping.emailBody + '\n' +
         mapping.requestLinkUrl + payload.portalDetails.id + '.' + payload.packageDetails.id
@@ -85,11 +83,7 @@ module.exports.webhookController = async (req, res) => {
             subject: mapping.emailSubject,
             emailBody
         }
-
-        // console.log(`email data: ${JSON.stringify(emailData)}\nPayload: ${JSON.stringify(payload)}`)
-
         try {
-            console.log('sending email:', emailData)
             return await sendMail(emailData)
         } catch (error) {
             return res.status(400).json(error)
@@ -97,6 +91,5 @@ module.exports.webhookController = async (req, res) => {
     }
 
     const sendMailResult = await sendEmail()
-    console.log('email sent:', sendMailResult)
     return res.status(200).json(sendMailResult)
 }

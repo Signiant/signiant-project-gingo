@@ -6,11 +6,9 @@ let formUrl = process.env.formUrl;
 
 module.exports.showController = (req, res) => {
     /* 
-    Extract Media Shuttle package endpoint url from the redirectUrl request body parameter passed by Media Shuttle
-    
-    Invoke a GET request on this url to retrieve all known package details prior displaying the metadata form.
-    
-    The package endpoint url is the same as the redirectUrl without the /metadata suffix.
+    1. Extract Media Shuttle package endpoint url from the redirectUrl request body parameter passed by Media Shuttle
+    2. Invoke a GET request on this url to retrieve all known package details prior displaying the metadata form.
+    3. The package endpoint url is the same as the redirectUrl without the /metadata suffix.
     */
 
     const portalPackageUrl = req.body.redirectUrl.replace(/\/metadata$/, '');
@@ -25,8 +23,6 @@ module.exports.showController = (req, res) => {
             return rp.get(formUrl)
                 .then(form => {
                     res.send(ejs.render(form, {
-                        // packageId: portalPackageJson.packageDetails.packageId,
-                        // files: portalPackageJson.packageDetails.files,
                         redirectUrl: req.body.redirectUrl,
                         senderEmail: portalPackageJson.packageDetails.sender
                     }));

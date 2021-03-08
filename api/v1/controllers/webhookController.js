@@ -53,19 +53,26 @@ module.exports.webhookController = async (req, res) => {
     const packageData = await getPortalsPackages(payload.portalDetails.id, payload.packageDetails.id)
 
     console.log('packageData', packageData.data)
-    let metadata = ''
 
-    for (const [key, value] of Object.entries(packageData.data.metadata)) {
-        metadata = metadata + (`${key}: ${value}\n`);
-      }
+    // for (const [key, value] of Object.entries(packageData.data.metadata)) {
+    //     metadata = metadata + (`${key}: ${value}\n`);
+    // }
 
-    // send email to recipients
+    // standardize order of metadata keys
+    let metadataFormatted = {
+        'Sender name': packageData.metadata.senderName,
+        'Sender email': packageData.metadata.senderEmail,
+        'Show/Feature name': packageData.metadata.showFeatureName,
+        'Package contents': packageData.metadata.packageContents
+    }
 
-    let emailBody =  
-        'File information:\n\n' + 
-        metadata + '\n\n' +
-        mapping.emailBody + '\n' +
-        mapping.requestLinkUrl + payload.portalDetails.id + '.' + payload.packageDetails.id
+        // send email to recipients
+
+        let emailBody =
+            'File information:\n\n' +
+            metadataFormatted + '\n\n' +
+            mapping.emailBody + '\n' +
+            mapping.requestLinkUrl + payload.portalDetails.id + '.' + payload.packageDetails.id
 
     const sendEmail = async () => {
         let emailData = {
@@ -76,7 +83,7 @@ module.exports.webhookController = async (req, res) => {
         }
 
         // console.log(`email data: ${JSON.stringify(emailData)}\nPayload: ${JSON.stringify(payload)}`)
-    
+
         try {
             console.log('sending email:', emailData)
             return await sendMail(emailData)
@@ -84,7 +91,7 @@ module.exports.webhookController = async (req, res) => {
             return res.status(400).json(error)
         }
     }
-    
+
     const sendMailResult = await sendEmail()
     console.log('email sent:', sendMailResult)
     return res.status(200).json(sendMailResult)

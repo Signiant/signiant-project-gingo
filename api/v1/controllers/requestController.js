@@ -59,10 +59,6 @@ module.exports.requestController = async (req, res) => {
         })
     })
 
-    console.log('downloadPackageFiles', downloadPackageFiles)
-
-
-
 // generate S2P linkc
 
 // determine upload portals expiration criteria

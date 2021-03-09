@@ -27,7 +27,7 @@ module.exports.showController = async (req, res) => {
             console.log('here2')
             let params1 = {
                 method: 'GET',
-                params: { BaseURL: signedPortalPackageUrl }
+                params: { url: signedPortalPackageUrl }
             }
             const portalPackage = await axios(params1)
             console.log('portalPackage', portalPackage)
@@ -42,7 +42,7 @@ module.exports.showController = async (req, res) => {
         try {
             let params2 = {
                 method: 'GET',
-                params: { baseURL: formUrl }
+                params: { url: formUrl }
             }
      
             const form = await axios(params2)

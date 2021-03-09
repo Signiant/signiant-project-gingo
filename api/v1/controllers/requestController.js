@@ -9,7 +9,7 @@ const { portalMapping } = require('../../../components/config')
 const { getPortals, getPortalsPackages, getPortalsPackagesFiles, generateWebToken } = require('@concentricity/media_shuttle_components')
 
 module.exports.requestController = async (req, res) => {
-
+    
     // extract the keys from formatted email request format: /request/:key (portalId.packageId)
     const portalId = req.params.key.substring(0, 36)
     const packageId = req.params.key.substring(37, 59)
@@ -20,16 +20,18 @@ module.exports.requestController = async (req, res) => {
         return portalId === item.id
     })
     const uploadPortalUrl = uploadPortal.url
-
+    
     // retrieve package details including metadata
     const uploadPackageDetails = await getPortalsPackages(portalId, packageId)
-
+    
     // determine download portal to use for token generation
     const mapping = portalMapping.find(item => {
         return uploadPortalUrl === item.uploadUrl
     })
     const downloadPortalUrl = mapping.downloadUrl
-
+    
+    console.log(`Download requested for ${mapping.name}`)
+    
     // retrieve package files array
     const uploadPackageFiles = await getPortalsPackagesFiles(portalId, packageId)
 

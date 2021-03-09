@@ -12,14 +12,16 @@ const { getPortals, getPortalsUsers, getPortalsPackages } = require('@concentric
 
 module.exports.webhookController = async (req, res) => {
 
+    
     // retrieve webhook payload details
     const { payload } = req.body
-    console.log('payload', payload)
-
+    
     // lookup portal mapping to determine download portal
     const mapping = portalMapping.find(item => {
         return payload.portalDetails.url === item.uploadUrl
     })
+    
+    console.log(`Uploaded completed for: ${mapping.name}'`)
 
     // retrieve destination portal details
     const getPortalId = async (downloadPortal) => {

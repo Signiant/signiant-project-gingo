@@ -24,55 +24,55 @@ module.exports.showController = async (req, res) => {
 
     // Fetch the package details from Media Shuttle
     // let portalPackageJson
-    // try {
-        console.log('here2')
-        let params1 = {
-            method: 'GET',
-            params: { BaseURL: signedPortalPackageUrl }
-        }
+    // // try {
+    //     console.log('here2')
+    //     let params1 = {
+    //         method: 'GET',
+    //         params: { BaseURL: signedPortalPackageUrl }
+    //     }
 
     
-        const portalPackage = await axios(params1)
-        console.log('portalPackage', portalPackage)
-        const portalPackageJson = JSON.parse(portalPackage)
-        console.log('portalPackageJson', portalPackageJson)
-    // } catch (error) {
-    //     return res.status(500).send(error.message).end();
-    // }
+    //     const portalPackage = await axios(params1)
+    //     console.log('portalPackage', portalPackage)
+    //     const portalPackageJson = JSON.parse(portalPackage)
+    //     console.log('portalPackageJson', portalPackageJson)
+    // // } catch (error) {
+    // //     return res.status(500).send(error.message).end();
+    // // }
 
-    //  Return the form with the template values
-    // console.log('portalPackageJson', portalPackageJson)
-    // try {
-        let params2 = {
-            method: 'GET',
-            params: { baseURL: formUrl }
-        }
+    // //  Return the form with the template values
+    // // console.log('portalPackageJson', portalPackageJson)
+    // // try {
+    //     let params2 = {
+    //         method: 'GET',
+    //         params: { baseURL: formUrl }
+    //     }
     
-        const form = await axios(params2)
-        console.log('form', form)
+    //     const form = await axios(params2)
+    //     console.log('form', form)
     
-        res.send(ejs.render(form, {
-            redirectUrl: req.body.redirectUrl,
-            senderEmail: portalPackageJson.packageDetails.sender
-        }));
-    // } catch (error) {
-    //     return res.status(500).send(error.message).end();
-    // }
+    //     res.send(ejs.render(form, {
+    //         redirectUrl: req.body.redirectUrl,
+    //         senderEmail: portalPackageJson.packageDetails.sender
+    //     }));
+    // // } catch (error) {
+    // //     return res.status(500).send(error.message).end();
+    // // }
     
 
 
-    // rp.get(signedPortalPackageUrl)
-    //     .then(portalPackage => {
-    //         let portalPackageJson = JSON.parse(portalPackage);
-    //         return rp.get(formUrl)
-    //             .then(form => {
-    //                 res.send(ejs.render(form, {
-    //                     redirectUrl: req.body.redirectUrl,
-    //                     senderEmail: portalPackageJson.packageDetails.sender
-    //                 }));
-    //             });
-    //     })
-    //     .catch(err => {
-    //         return res.status(500).send(err.message).end();
-    //     });
+    rp.get(signedPortalPackageUrl)
+        .then(portalPackage => {
+            let portalPackageJson = JSON.parse(portalPackage);
+            return rp.get(formUrl)
+                .then(form => {
+                    res.send(ejs.render(form, {
+                        redirectUrl: req.body.redirectUrl,
+                        senderEmail: portalPackageJson.packageDetails.sender
+                    }));
+                });
+        })
+        .catch(err => {
+            return res.status(500).send(err.message).end();
+        });
 }

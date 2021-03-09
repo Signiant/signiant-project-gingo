@@ -19,18 +19,21 @@ module.exports.showController = async (req, res) => {
     // Generate a signed url for the above using the portal registration key.
     const signedPortalPackageUrl = await generateSignedUrl(portalPackageUrl, '', registrationKey);
 
-    rp.get(signedPortalPackageUrl)
-        .then(portalPackage => {
-            let portalPackageJson = JSON.parse(portalPackage);
-            return rp.get(formUrl)
-                .then(form => {
-                    res.send(ejs.render(form, {
-                        redirectUrl: req.body.redirectUrl,
-                        senderEmail: portalPackageJson.packageDetails.sender
-                    }));
-                });
-        })
-        .catch(err => {
-            return res.status(500).send(err.message).end();
-        });
+    setTimeout(()=>{
+        rp.get(signedPortalPackageUrl)
+            .then(portalPackage => {
+                let portalPackageJson = JSON.parse(portalPackage);
+                return rp.get(formUrl)
+                    .then(form => {
+                        res.send(ejs.render(form, {
+                            redirectUrl: req.body.redirectUrl,
+                            senderEmail: portalPackageJson.packageDetails.sender
+                        }));
+                    });
+            })
+            .catch(err => {
+                return res.status(500).send(err.message).end();
+            });
+
+    },1000)
 }

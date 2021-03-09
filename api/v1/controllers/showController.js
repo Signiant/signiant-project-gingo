@@ -19,6 +19,7 @@ module.exports.showController = async (req, res) => {
     const signedPortalPackageUrl = await generateSignedUrl(portalPackageUrl, '', registrationKey);
 
     // Fetch the package details from Media Shuttle
+    let portalPackageJson
     try {
         let params = {
             method: 'GET',
@@ -26,12 +27,13 @@ module.exports.showController = async (req, res) => {
         }
     
         const portalPackage = await axios(params)
-        const portalPackageJson = JSON.parse(portalPackage)
+        portalPackageJson = JSON.parse(portalPackage)
     } catch (error) {
         return res.status(500).send(error.message).end();
     }
 
     //  Return the form with the template values
+    // console.log('portalPackageJson', portalPackageJson)
     try {
         let params = {
             method: 'GET',

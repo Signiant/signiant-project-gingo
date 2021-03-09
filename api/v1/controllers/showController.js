@@ -20,20 +20,21 @@ module.exports.showController = async (req, res) => {
     const signedPortalPackageUrl = await generateSignedUrl(portalPackageUrl, '', registrationKey);
     console.log('here1')
     console.log('signedPortalPackageUrl', signedPortalPackageUrl)
+    console.log(typeof signedPortalPackageUrl)
 
     // Fetch the package details from Media Shuttle
     // let portalPackageJson
     // try {
+        console.log('here2')
         let params1 = {
             method: 'GET',
             params: { url: signedPortalPackageUrl }
         }
-        console.log('here2')
 
     
         const portalPackage = await axios(params1)
-        const portalPackageJson = JSON.parse(portalPackage)
         console.log('portalPackage', portalPackage)
+        const portalPackageJson = JSON.parse(portalPackage)
         console.log('portalPackageJson', portalPackageJson)
     // } catch (error) {
     //     return res.status(500).send(error.message).end();

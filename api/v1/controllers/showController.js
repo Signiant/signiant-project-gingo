@@ -11,8 +11,6 @@ module.exports.showController = (req, res) => {
     3. The package endpoint url is the same as the redirectUrl without the /metadata suffix.
     */
 
-    console.log('showController req.body', req.body)
-
     const portalPackageUrl = req.body.redirectUrl.replace(/\/metadata$/, '');
 
     // Generate a signed url for the above using the portal registration key.

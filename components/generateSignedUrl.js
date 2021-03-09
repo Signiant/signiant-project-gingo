@@ -1,7 +1,7 @@
 const querystring = require('querystring');
 const crypto = require('crypto');
 
-exports.generateSignedUrl = async (requestUrl, requestBody, registrationKey) => {
+exports.generateSignedUrl = (requestUrl, requestBody, registrationKey) => {
     const requestTimestamp = new Date().toISOString();
 
     // Generate canonical query string

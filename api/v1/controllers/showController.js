@@ -14,12 +14,11 @@ module.exports.showController = async (req, res) => {
     */
 
     const portalPackageUrl = req.body.redirectUrl.replace(/\/metadata$/, '');
-    console.log('req.body', req.body)
 
     // Generate a signed url for the above using the portal registration key.
     const signedPortalPackageUrl = await generateSignedUrl(portalPackageUrl, '', registrationKey);
 
-    // Restore this iteration to include timeout after more testing
+    // Restore this refactoring to include timeout after more testing
 
     // Fetch the package details from Media Shuttle
     // let portalPackageJson

@@ -16,7 +16,7 @@ module.exports.showController = async (req, res) => {
     const portalPackageUrl = req.body.redirectUrl.replace(/\/metadata$/, '');
 
     // Generate a signed url for the above using the portal registration key.
-    const signedPortalPackageUrl = await generateSignedUrl(portalPackageUrl, '', registrationKey);
+    const signedPortalPackageUrl = generateSignedUrl(portalPackageUrl, '', registrationKey);
 
     // Restore this refactoring to include timeout after more testing
 

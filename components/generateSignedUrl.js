@@ -1,7 +1,7 @@
 const querystring = require('querystring');
 const crypto = require('crypto');
 
-exports.generateSignedUrl = (requestUrl, requestBody, registrationKey) => {
+exports.generateSignedUrl = async (requestUrl, requestBody, registrationKey) => {
     const requestTimestamp = new Date().toISOString();
 
     // Generate canonical query string
@@ -20,7 +20,7 @@ exports.generateSignedUrl = (requestUrl, requestBody, registrationKey) => {
     // Generate request signature
     hmac = crypto.createHmac('sha256', signingKey);
     const signature = hmac.update(stringToSign).digest('hex');
-    
+
     // Generate the signed URL
     const signatureParam = `X-Sig-Signature=${signature}`;
     return `${requestUrl}?${algorithmParam}&${dateParam}&${signatureParam}`;

@@ -2,7 +2,6 @@ require('dotenv').config()
 const { SESClient, SendEmailCommand } = require("@aws-sdk/client-ses");
 const ses = new SESClient({ region: process.env.AWS_REGION });
 
-
 const setEmailParams = (emailParams) => {
     
     let {to, from, subject, emailBody} = emailParams
@@ -47,7 +46,6 @@ module.exports.sendMail = async (emailData) => {
 
     let params = setEmailParams(emailData)
     
-    console.log('params', params)
     try {
         const result = await ses.send(new SendEmailCommand(params));
         return { result }

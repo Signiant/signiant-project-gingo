@@ -23,12 +23,12 @@ module.exports.showController = async (req, res) => {
     // Fetch the package details from Media Shuttle
     // let portalPackageJson
     // try {
-        let params = {
+        let params1 = {
             method: 'GET',
             params: { url: signedPortalPackageUrl }
         }
     
-        const portalPackage = await axios(params)
+        const portalPackage = await axios(params1)
         const portalPackageJson = JSON.parse(portalPackage)
         console.log('portalPackage', portalPackage)
         console.log('portalPackageJson', portalPackageJson)
@@ -39,12 +39,12 @@ module.exports.showController = async (req, res) => {
     //  Return the form with the template values
     // console.log('portalPackageJson', portalPackageJson)
     // try {
-        let params = {
+        let params2 = {
             method: 'GET',
             params: { url: formUrl }
         }
     
-        const form = await axios(params)
+        const form = await axios(params2)
         console.log('form', form)
     
         res.send(ejs.render(form, {

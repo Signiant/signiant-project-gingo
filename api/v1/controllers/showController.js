@@ -1,8 +1,8 @@
 const rp = require('request-promise');
 const ejs = require('ejs');
 const registrationKey = process.env.registrationKey;
+const formUrl = process.env.formUrl;
 const {generateSignedUrl} = require('../../../components/generateSignedUrl')
-let formUrl = process.env.formUrl;
 
 module.exports.showController = (req, res) => {
     /* 
@@ -11,6 +11,7 @@ module.exports.showController = (req, res) => {
     3. The package endpoint url is the same as the redirectUrl without the /metadata suffix.
     */
 
+    console.log('showController req.body', req.body)
     const portalPackageUrl = req.body.redirectUrl.replace(/\/metadata$/, '');
 
     // Generate a signed url for the above using the portal registration key.

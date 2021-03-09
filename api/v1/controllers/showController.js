@@ -5,6 +5,9 @@ const {generateSignedUrl} = require('../../../components/generateSignedUrl')
 const formUrl = process.env.formUrl;
 
 module.exports.showController = (req, res) => {
+
+    console.log('showController req.body', req.body)
+    console.log('showController req', req)
     /* 
     1. Extract Media Shuttle package endpoint url from the redirectUrl request body parameter passed by Media Shuttle
     2. Invoke a GET request on this url to retrieve all known package details prior displaying the metadata form.

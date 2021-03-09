@@ -17,7 +17,9 @@ module.exports.showController = async (req, res) => {
      
         // Generate a signed url for the above using the portal registration key.
         const signedPortalPackageUrl = generateSignedUrl(portalPackageUrl, '', registrationKey);
-     
+
+        console.log('signedPortalPackageUrl', signedPortalPackageUrl)
+
         // Restore this refactoring to include timeout after more testing
      
         // Fetch the package details from Media Shuttle
@@ -33,10 +35,10 @@ module.exports.showController = async (req, res) => {
                 console.log('here3')
                 const portalPackage = await axios(params1)
                 console.log('here4')
+                console.log('portalPackage', portalPackage)
+                const portalPackageJson = JSON.parse(portalPackage)
+                console.log('portalPackageJson', portalPackageJson)
             }, 500)
-            console.log('portalPackage', portalPackage)
-            const portalPackageJson = JSON.parse(portalPackage)
-            console.log('portalPackageJson', portalPackageJson)
         } catch (error) {
             return res.status(500).send(error.message).end();
         }

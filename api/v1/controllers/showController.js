@@ -14,41 +14,46 @@ module.exports.showController = async (req, res) => {
     */
 
     const portalPackageUrl = req.body.redirectUrl.replace(/\/metadata$/, '');
+    console.log('req.body', req.body)
 
     // Generate a signed url for the above using the portal registration key.
     const signedPortalPackageUrl = await generateSignedUrl(portalPackageUrl, '', registrationKey);
+    console.log('signedPortalPackageUrl', signedPortalPackageUrl)
 
     // Fetch the package details from Media Shuttle
-    let portalPackageJson
-    try {
+    // let portalPackageJson
+    // try {
         let params = {
             method: 'GET',
             params: { url: signedPortalPackageUrl }
         }
     
         const portalPackage = await axios(params)
-        portalPackageJson = JSON.parse(portalPackage)
-    } catch (error) {
-        return res.status(500).send(error.message).end();
-    }
+        const portalPackageJson = JSON.parse(portalPackage)
+        console.log('portalPackage', portalPackage)
+        console.log('portalPackageJson', portalPackageJson)
+    // } catch (error) {
+    //     return res.status(500).send(error.message).end();
+    // }
 
     //  Return the form with the template values
     // console.log('portalPackageJson', portalPackageJson)
-    try {
+    // try {
         let params = {
             method: 'GET',
             params: { url: formUrl }
         }
     
         const form = await axios(params)
+        console.log('form', form)
     
         res.send(ejs.render(form, {
             redirectUrl: req.body.redirectUrl,
             senderEmail: portalPackageJson.packageDetails.sender
         }));
-    } catch (error) {
-        return res.status(500).send(error.message).end();
-    }
+    // } catch (error) {
+    //     return res.status(500).send(error.message).end();
+    // }
     
 
 

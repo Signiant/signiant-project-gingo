@@ -35,5 +35,5 @@ module.exports.showController = async (req, res) => {
                 return res.status(500).send(err.message).end();
             });
 
-    },1000)
+    },500)
 }

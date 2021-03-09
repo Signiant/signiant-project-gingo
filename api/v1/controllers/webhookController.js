@@ -20,8 +20,6 @@ module.exports.webhookController = async (req, res) => {
     const mapping = portalMapping.find(item => {
         return payload.portalDetails.url === item.uploadUrl
     })
-    
-    console.log(`Uploaded completed for: ${mapping.name}'`)
 
     // retrieve destination portal details
     const getPortalId = async (downloadPortal) => {

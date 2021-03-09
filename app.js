@@ -7,7 +7,6 @@ const routes = require('./api/v1/controllers/index');
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-
     app.listen(port, () => {
     console.log('App listening on ' + port + ' @ ' + (new Date()).toLocaleString());
 });

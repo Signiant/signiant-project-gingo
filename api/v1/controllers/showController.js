@@ -24,7 +24,7 @@ module.exports.showController = async (req, res) => {
      
         // Fetch the package details from Media Shuttle
         let portalPackageJson
-        try {
+        // try {
             console.log('here1')
             let params1 = {
                 method: 'GET',
@@ -39,13 +39,13 @@ module.exports.showController = async (req, res) => {
                 const portalPackageJson = JSON.parse(portalPackage)
                 console.log('portalPackageJson', portalPackageJson)
             }, 500)
-        } catch (error) {
-            return res.status(500).send(error.message).end();
-        }
+        // } catch (error) {
+        //     return res.status(500).send(error.message).end();
+        // }
      
         // Return the form with the template values
         console.log('portalPackageJson', portalPackageJson)
-        try {
+        // try {
             let params2 = {
                 method: 'GET',
                 params: { url: formUrl }
@@ -58,9 +58,9 @@ module.exports.showController = async (req, res) => {
                 redirectUrl: req.body.redirectUrl,
                 senderEmail: portalPackageJson.packageDetails.sender
             }));
-        } catch (error) {
-            return res.status(500).send(error.message).end();
-        }
+        // } catch (error) {
+        //     return res.status(500).send(error.message).end();
+        // }
     
 
 

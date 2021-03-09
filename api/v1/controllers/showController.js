@@ -13,7 +13,6 @@ module.exports.showController = async (req, res) => {
     3. The package endpoint url is the same as the redirectUrl without the /metadata suffix.
     */
 
-   setTimeout(async () => {
         const portalPackageUrl = req.body.redirectUrl.replace(/\/metadata$/, '');
      
         // Generate a signed url for the above using the portal registration key.
@@ -24,12 +23,17 @@ module.exports.showController = async (req, res) => {
         // Fetch the package details from Media Shuttle
         let portalPackageJson
         try {
-            console.log('here2')
+            console.log('here1')
             let params1 = {
                 method: 'GET',
                 params: { url: signedPortalPackageUrl }
             }
-            const portalPackage = await axios(params1)
+            console.log('here2')
+            setTimeout( async () => {
+                console.log('here3')
+                const portalPackage = await axios(params1)
+                console.log('here4')
+            }, 500)
             console.log('portalPackage', portalPackage)
             const portalPackageJson = JSON.parse(portalPackage)
             console.log('portalPackageJson', portalPackageJson)
@@ -55,8 +59,6 @@ module.exports.showController = async (req, res) => {
         } catch (error) {
             return res.status(500).send(error.message).end();
         }
-
-    }, 500)
     
 
 

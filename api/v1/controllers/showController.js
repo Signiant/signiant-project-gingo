@@ -1,8 +1,8 @@
 const rp = require('request-promise');
 const ejs = require('ejs');
 const registrationKey = process.env.registrationKey;
-const formUrl = process.env.formUrl;
 const {generateSignedUrl} = require('../../../components/generateSignedUrl')
+const formUrl = process.env.formUrl;
 
 module.exports.showController = (req, res) => {
     /* 

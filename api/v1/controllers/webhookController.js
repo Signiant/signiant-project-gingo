@@ -49,11 +49,7 @@ module.exports.webhookController = async (req, res) => {
     const destinationEmails = await getDestinationEmails(downloadPortalId)
 
     // retrieve package metadata
-    try {
-        const packageData = await getPortalsPackages(payload.portalDetails.id, payload.packageDetails.id)
-    } catch (error) {
-        return res.status(400).json(error)
-    }
+    const packageData = await getPortalsPackages(payload.portalDetails.id, payload.packageDetails.id)
 
     // standardize order of metadata keys
     let metadataFormatted = {

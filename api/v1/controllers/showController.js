@@ -17,7 +17,7 @@ module.exports.showController = async (req, res) => {
     console.log('req.body', req.body)
 
     // Generate a signed url for the above using the portal registration key.
-    const signedPortalPackageUrl = await generateSignedUrl(portalPackageUrl, '', registrationKey);
+    const signedPortalPackageUrl = generateSignedUrl(portalPackageUrl, '', registrationKey);
     console.log('signedPortalPackageUrl', signedPortalPackageUrl)
 
     // Fetch the package details from Media Shuttle

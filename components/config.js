@@ -12,5 +12,16 @@ module.exports.portalMapping = [
         emailSubject: "Gingo One has new package available to download",
         emailBody: "Click below to download the package:",
         requestLinkUrl: "https://ms-metadata-distribute.herokuapp.com/request/"
+    },
+    {
+        name: "APEX",
+        uploadUrl: "apex-upload.mediashuttle.com",
+        downloadUrl: "apex-download.mediashuttle.com",
+        expirationHours: 168,
+        senderEmail: "sreynolds@signiant.com",
+        senderName: "APEX Admin",
+        emailSubject: "APEX has new package available to download",
+        emailBody: "Click below to download the package:",
+        requestLinkUrl: "https://ms-metadata-distribute.herokuapp.com/request/"
     }
 ]

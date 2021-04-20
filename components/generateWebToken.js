@@ -5,9 +5,9 @@ const getPortals = require('./getPortals');
 const portalsPortalIdPackagesPost = require('./portalsPortalIdPackagesPost');
 const putPackages = require('./putPackages')
 
-module.exports = async (params) => {
+module.exports = async (options) => {
    
-   let { portalId, portalUrl, packageId, userEmail, grants, expiration, destinationPath, files, webhook } = params;
+   let { portalId, portalUrl, packageId, userEmail, grants, expiration, destinationPath, files, webhook } = options;
    
    if (!portalId && !portalUrl) {
       console.log('error: portalId or portalUrl is required')

@@ -8,10 +8,11 @@ Module workflow:
 
 const { sendMail } = require('../../../components/sendMail')
 const { portalMapping } = require('../../../components/config')
-const { getPortals, getPortalsUsers, getPortalsPackages } = require('@concentricity/media_shuttle_components')
+const getPortals = require("../../../components/getPortals.js")
+const getPackages = require("../../../components/getPackages.js")
+const getMembersFromPortal = require("../../../components/getMembersFromPortal")
 
 module.exports.webhookController = async (req, res) => {
-
     
     // retrieve webhook payload details
     const { payload } = req.body
@@ -38,11 +39,11 @@ module.exports.webhookController = async (req, res) => {
     const downloadPortalId = await getPortalId(mapping.downloadUrl)
 
     // retrieve destination portal emails
-    const getDestinationEmails = async (downloadPortalId) => {
+    const getDestinationEmails = async (portalId) => {
         try {
-            let emailArray = await getPortalsUsers(downloadPortalId)
+            let emailArray = await getMembersFromPortal(downloadPortalId)
             let emailsOnly = []
-            emailArray.data.map(item => {
+            emailArray.items.map(item => {
                 emailsOnly.push(item.email)
             })
             return emailsOnly
@@ -53,7 +54,7 @@ module.exports.webhookController = async (req, res) => {
     const destinationEmails = await getDestinationEmails(downloadPortalId)
 
     // retrieve package metadata
-    const packageData = await getPortalsPackages(payload.portalDetails.id, payload.packageDetails.id)
+    const packageData = await getPackages(payload.portalDetails.id, payload.packageDetails.id)
 
     // standardize order of metadata keys
     let metadataFormatted = {

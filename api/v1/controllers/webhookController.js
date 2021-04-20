@@ -58,10 +58,10 @@ module.exports.webhookController = async (req, res) => {
 
     // standardize order of metadata keys
     let metadataFormatted = {
-        'Sender name': packageData.data.metadata.senderName,
-        'Sender email': packageData.data.metadata.senderEmail,
-        'Show/Feature name': packageData.data.metadata.showFeatureName,
-        'Package contents': packageData.data.metadata.packageContents
+        'Sender name': packageData.metadata.senderName,
+        'Sender email': packageData.metadata.senderEmail,
+        'Show/Feature name': packageData.metadata.showFeatureName,
+        'Package contents': packageData.metadata.packageContents
     }
 
     // convert JSON to string format

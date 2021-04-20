@@ -11,7 +11,7 @@ module.exports.portalMapping = [
         senderName: "Gingo One Admin",
         emailSubject: "Gingo One has new package available to download",
         emailBody: "Click below to download the package:",
-        requestLinkUrl: "https://ms-metadata-distribute.herokuapp.com/request/"
+        requestLinkUrl: "https://ms-metadata-distribute-staging.herokuapp.com/request/"
     },
     {
         name: "APEX",

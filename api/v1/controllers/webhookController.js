@@ -18,10 +18,12 @@ module.exports.webhookController = async (req, res) => {
     
     // lookup portal mapping to determine download portal
     const mapping = portalMapping.find(item => {
-        return payload.portalDetails.url === item.uploadUrl
+        if (payload.portalDetails.url === item.uploadUrl) {
+            console.log('mapping',item)
+            return item
+        }
     })
 
-    console.log('mapping',mapping)
     // retrieve destination portal details
     const getPortalId = async (downloadPortal) => {
         try {

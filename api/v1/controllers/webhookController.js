@@ -21,10 +21,12 @@ module.exports.webhookController = async (req, res) => {
         return payload.portalDetails.url === item.uploadUrl
     })
 
+    console.log('mapping',mapping)
     // retrieve destination portal details
     const getPortalId = async (downloadPortal) => {
         try {
             let portalDetails = await getPortals(downloadPortal)
+            console.log('portalDetails', portalDetails)
             return portalDetails.data[0].id
         } catch (error) {
             return error

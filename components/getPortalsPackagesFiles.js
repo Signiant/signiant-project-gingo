@@ -4,7 +4,7 @@ var defaultClient = MediaShuttleApi.ApiClient.instance;
 var ApiKey = defaultClient.authentications['ApiKey'];
 ApiKey.apiKey = process.env.MS_API_KEY
 
- = async (portalId, packageId) => {
+module.exports = async (portalId, packageId) => {
     
     var apiInstance = new MediaShuttleApi.SystemToPersonApi();
     

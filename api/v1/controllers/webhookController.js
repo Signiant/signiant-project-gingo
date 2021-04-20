@@ -38,7 +38,7 @@ module.exports.webhookController = async (req, res) => {
     const downloadPortalId = await getPortalId(mapping.downloadUrl)
 
     // retrieve destination portal emails
-    const getDestinationEmails = async (portalId) => {
+    const getDestinationEmails = async (downloadPortalId) => {
         try {
             let emailArray = await getPortalsUsers(downloadPortalId)
             let emailsOnly = []

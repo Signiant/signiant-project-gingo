@@ -1,7 +1,6 @@
 require('dotenv').config()
 const axios = require('axios');
 const config = require('./config');
-// const apiProxy = require('./apiProxy');
 const getPortals = require('./getPortals');
 const portalsPortalIdPackagesPost = require('./portalsPortalIdPackagesPost');
 const putPackages = require('./putPackages')

@@ -19,6 +19,7 @@ module.exports = async (url) => {
         if (error) {
             console.error(error);
         } else {
+            console.log('getPortals return data:', data)
             return data
         }
     };

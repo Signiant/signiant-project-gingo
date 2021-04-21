@@ -38,6 +38,7 @@ module.exports.webhookController = async (req, res) => {
 
     const downloadPortalId = await getPortalId(mapping.downloadUrl)
 
+    console.log('downloadPortalId:', downloadPortalId)
     // retrieve destination portal emails
     const getDestinationEmails = async (portalId) => {
         try {
@@ -56,6 +57,8 @@ module.exports.webhookController = async (req, res) => {
     // retrieve package metadata
     const packageData = await getPackages(payload.portalDetails.id, payload.packageDetails.id)
 
+    console.log('packageData:', packageData)
+    
     // standardize order of metadata keys
     let metadataFormatted = {
         'Sender name': packageData.metadata.senderName,

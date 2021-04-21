@@ -30,7 +30,7 @@ module.exports.webhookController = async (req, res) => {
         try {
             let portalDetails = await getPortals(downloadPortal)
             console.log('portalDetails', portalDetails)
-            return portalDetails.data[0].id
+            return portalDetails.items[0].id
         } catch (error) {
             return error
         }

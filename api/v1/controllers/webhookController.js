@@ -27,6 +27,7 @@ module.exports.webhookController = async (req, res) => {
 
     // retrieve destination portal details
     const getPortalId = async (downloadPortal) => {
+        console.log('downloadPortal:', downloadPortal)
         try {
             let portalDetails = await getPortals(downloadPortal)
             console.log('portalDetails', portalDetails)

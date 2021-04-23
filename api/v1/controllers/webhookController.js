@@ -20,26 +20,13 @@ module.exports.webhookController = async (req, res) => {
     // lookup portal mapping to determine download portal
     const mapping = portalMapping.find(item => {
         if (payload.portalDetails.url === item.uploadUrl) {
-            console.log('mapping',item)
             return item
         }
     })
-
-    // retrieve destination portal details
-    const getPortalId = async (downloadPortal) => {
-        console.log('downloadPortal:', downloadPortal)
-        try {
-            let portalDetails = await getPortals(downloadPortal)
-            console.log('portalDetails', portalDetails)
-            return portalDetails.items[0].id
-        } catch (error) {
-            return error
-        }
-    }
-
-    const downloadPortalId = await getPortalId(mapping.downloadUrl)
-
-    console.log('downloadPortalId:', downloadPortalId)
+  
+    const portalInfo = await getPortals(mapping.downloadUrl)
+    const downloadPortalId = portalInfo.items[0].id
+        
     // retrieve destination portal emails
     const getDestinationEmails = async (portalId) => {
         try {
@@ -54,11 +41,9 @@ module.exports.webhookController = async (req, res) => {
         }
     }
     const destinationEmails = await getDestinationEmails(downloadPortalId)
-
+    
     // retrieve package metadata
     const packageData = await getPackages(payload.portalDetails.id, payload.packageDetails.id)
-
-    console.log('packageData:', packageData)
     
     // standardize order of metadata keys
     let metadataFormatted = {
@@ -81,7 +66,7 @@ module.exports.webhookController = async (req, res) => {
         mapping.emailBody + '\n' +
         mapping.requestLinkUrl + payload.portalDetails.id + '.' + payload.packageDetails.id
 
-    const sendEmail = async () => {
+    const sendEmails = async () => {
         let emailData = {
             to: destinationEmails,
             from: mapping.senderEmail,
@@ -91,10 +76,11 @@ module.exports.webhookController = async (req, res) => {
         try {
             return await sendMail(emailData)
         } catch (error) {
+            console.log('error', error)
             return res.status(400).json(error)
         }
     }
 
-    const sendMailResult = await sendEmail()
-    return res.status(200).json(sendMailResult)
+    await sendEmails()
+    res.status(200).send()
 }

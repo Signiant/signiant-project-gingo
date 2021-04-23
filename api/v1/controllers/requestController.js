@@ -17,26 +17,34 @@ module.exports.requestController = async (req, res) => {
     // extract the keys from formatted email request format: /request/:key (portalId.packageId)
     const portalId = req.params.key.substring(0, 36)
     const packageId = req.params.key.substring(37, 59)
+    console.log('portalId', portalId)
 
     // find and retrieve upload portal details
     const accountsPortals = await getPortals()
+    
+    // console.log('accountsPortals', accountsPortals)
     // const uploadPortal = accountsPortals.data.find(item => {
-    const uploadPortal = accountsPortals.items.find(item => {
-        return portalId === item.id
-    })
+    const uploadPortal = accountsPortals.items.find(item => portalId === item.id)
+
+    console.log('uploadPortal:', uploadPortal)
+
     const uploadPortalUrl = uploadPortal.url
+
+    console.log('uploadPortalUrl:', uploadPortalUrl)
     
     // retrieve package details including metadata
     // const uploadPackageDetails = await getPortalsPackages(portalId, packageId)
     const uploadPackageDetails = await getPackages(portalId, packageId)
     
+    console.log('uploadPackageDetails', uploadPackageDetails)
+
     // determine download portal to use for token generation
-    const mapping = portalMapping.find(item => {
-        return uploadPortalUrl === item.uploadUrl
-    })
+    const mapping = portalMapping.find(item => uploadPortalUrl === item.uploadUrl)
     const downloadPortalUrl = mapping.downloadUrl
+
+    console.log('downloadPortalUrl', downloadPortalUrl)
     
-    console.log(`Download requested for ${mapping.name}`)
+    console.log(`Download requested for ${downloadPortalUrl}`)
     
     // retrieve package files array
     const uploadPackageFiles = await getPortalsPackagesFiles(portalId, packageId)
@@ -50,7 +58,7 @@ module.exports.requestController = async (req, res) => {
 
     let downloadPackageFiles = []
 
-    uploadPackageFiles.data.map(item => {
+    uploadPackageFiles.files.map(item => {
         let n = item.path.split("/");
         downloadPackageFiles.push({
             path: rootPath + n[n.length - 1],

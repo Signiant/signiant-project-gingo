@@ -3,17 +3,19 @@ var MediaShuttleApi = require('media_shuttle_api');
 var defaultClient = MediaShuttleApi.ApiClient.instance;
 var ApiKey = defaultClient.authentications['ApiKey'];
 ApiKey.apiKey = process.env.MS_API_KEY
+var apiInstance = new MediaShuttleApi.SystemToPersonApi();
 
-module.exports = async (portalId, packageId) => {
+module.exports = (portalId, packageId) => {
+    return new Promise((resolve, reject) => {
 
-    var apiInstance = new MediaShuttleApi.SystemToPersonApi();
+        var callback = function (error, data, response) {
+            if (error) {
+                reject(error)
+            } else {
+                resolve(data)
+            }
+        };
 
-    var callback = function (error, data, response) {
-        if (error) {
-            console.error(error);
-        } else {
-           return data
-        }
-    };
-    apiInstance.getPackages(portalId, packageId, callback);
+        apiInstance.getPackages(portalId, packageId, callback);
+    })
 }

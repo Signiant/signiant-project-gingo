@@ -6,6 +6,8 @@ const portalsPortalIdPackagesPost = require('./portalsPortalIdPackagesPost');
 const putPackages = require('./putPackages')
 
 module.exports = async (options) => {
+
+   console.log('entering generateWebToken with:', options)
    
    let { portalId, portalUrl, packageId, userEmail, grants, expiration, destinationPath, files, webhook } = options;
    
@@ -31,7 +33,9 @@ module.exports = async (options) => {
    if (!portalId) {
       try {
          portalDetails = await getPortals(portalUrl)
-         portalId = portalDetails[0].id
+         console.log('portalDetails2:', portalDetails)
+         portalId = portalDetails.items[0].id
+
       } catch (error) {
          return ({ error })
       }
@@ -42,22 +46,27 @@ module.exports = async (options) => {
          return packageId
       } else {
          try {
-            packageIdDetails = await portalsPortalIdPackagesPost(portalId)
+            let packageDetails = await portalsPortalIdPackagesPost(portalId)
+            let packageId = packageDetails.id
             if (grants[0] === "download") {
                try {
-                  await putPackages(portalId, packageIdDetails, files)
+                  console.log('adding files to packge:', packageId)
+                  await putPackages(portalId, packageId, files)
                } catch (error) {
-                  return {error }
+                  return error
                }
-               
+            
             }
-            return packageIdDetails
          } catch (error) {
             return ({ error })
          }
       }
+      return packageId
    }
+
+   
    const refPackageId = await generatePackageId()
+   console.log('refPackageId', refPackageId)
    
    let params = {
       method: 'POST',
@@ -86,7 +95,7 @@ module.exports = async (options) => {
 
    try {
       let result
-      async (params) => {
+      async () => {
          params.headers = { Authorization: config.MS_API_KEY }
          result = await axios(params)
          console.log('genWebToken result:', result)

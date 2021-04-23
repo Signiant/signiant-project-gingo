@@ -4,16 +4,19 @@ var defaultClient = MediaShuttleApi.ApiClient.instance;
 var ApiKey = defaultClient.authentications['ApiKey'];
 ApiKey.apiKey = process.env.MS_API_KEY
 
-module.exports = async (portalId) => {
+module.exports = (portalId) => {
+    return new Promise ((resolve, reject) => {
 
-    var apiInstance = new MediaShuttleApi.SystemToPersonApi();
+        var apiInstance = new MediaShuttleApi.SystemToPersonApi();
+    
+        var callback = function (error, data, response) {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(data);
+            }
+        };
 
-    var callback = function (error, data, response) {
-        if (error) {
-            console.error(error);
-        } else {
-            return data;
-        }
-    };
-    apiInstance.portalsPortalIdPackagesPost(portalId, callback);
+        apiInstance.portalsPortalIdPackagesPost(portalId, callback);
+    })
 }

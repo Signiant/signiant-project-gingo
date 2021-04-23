@@ -1,5 +1,5 @@
-module.exports.config = {
-
+module.exports.api = {
+    apiUrl: 'https://api.mediashuttle.com/v1'
 }
 module.exports.portalMapping = [
     {

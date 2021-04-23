@@ -17,7 +17,6 @@ module.exports = (url) => {
 
       var callback = function (error, data, response) {
          if (error) {
-            console.error(error);
             reject(error)
          } else {
             resolve(data)

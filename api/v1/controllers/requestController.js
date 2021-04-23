@@ -17,7 +17,6 @@ module.exports.requestController = async (req, res) => {
     // extract the keys from formatted email request format: /request/:key (portalId.packageId)
     const portalId = req.params.key.substring(0, 36)
     const packageId = req.params.key.substring(37, 59)
-    console.log('portalId', portalId)
 
     // find and retrieve upload portal details
     const accountsPortals = await getPortals()
@@ -26,26 +25,16 @@ module.exports.requestController = async (req, res) => {
     // const uploadPortal = accountsPortals.data.find(item => {
     const uploadPortal = accountsPortals.items.find(item => portalId === item.id)
 
-    console.log('uploadPortal:', uploadPortal)
-
     const uploadPortalUrl = uploadPortal.url
-
-    console.log('uploadPortalUrl:', uploadPortalUrl)
     
     // retrieve package details including metadata
     // const uploadPackageDetails = await getPortalsPackages(portalId, packageId)
     const uploadPackageDetails = await getPackages(portalId, packageId)
     
-    console.log('uploadPackageDetails', uploadPackageDetails)
-
     // determine download portal to use for token generation
     const mapping = portalMapping.find(item => uploadPortalUrl === item.uploadUrl)
     const downloadPortalUrl = mapping.downloadUrl
-
-    console.log('downloadPortalUrl', downloadPortalUrl)
-    
-    console.log(`Download requested for ${downloadPortalUrl}`)
-    
+        
     // retrieve package files array
     const uploadPackageFiles = await getPortalsPackagesFiles(portalId, packageId)
 
@@ -82,10 +71,10 @@ module.exports.requestController = async (req, res) => {
     }
 
     try {
-        const downloadToken = await generateWebToken(params)
-        res.status(200).redirect(downloadToken.data)
+        let downloadToken = await generateWebToken(params)
+        res.status(200).redirect(downloadToken.url)
     } catch (error) {
-        res.status(400).JSON(error)
+        res.status(400).json(error)
     }
 
 }

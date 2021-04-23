@@ -13,7 +13,6 @@ module.exports = (portalId, packageId) => {
         if (error) {
           reject (error)
         } else {
-          // console.log('packagesFiles', data)
           resolve (data)
         }
       };

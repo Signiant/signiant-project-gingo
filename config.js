@@ -1,8 +1,8 @@
 require('dotenv').config()
 
 module.exports.settings = {
-    apiUrl: 'https://api.mediashuttle.com/v1',
-    AWS_REGION='us-west-2'
+    apiUrl: "https://api.mediashuttle.com/v1",
+    AWS_REGION="us-west-2"
 }
 
 module.exports.keys = {

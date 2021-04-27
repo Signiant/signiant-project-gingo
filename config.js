@@ -6,7 +6,7 @@ module.exports.settings = {
 }
 
 module.exports.keys = {
-    MS_API_KEY=process.env.MS_API_KEY
+    MS_API_KEY: process.env.MS_API_KEY
 }
 
 module.exports.portalMapping = [

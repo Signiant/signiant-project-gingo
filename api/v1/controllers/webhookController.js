@@ -7,7 +7,7 @@ Module workflow:
 */
 
 const { sendMail } = require('../../../components/sendMail')
-const { portalMapping } = require('../../../components/config')
+const { portalMapping } = require('../../../config')
 const getPortals = require("../../../components/getPortals.js")
 const getPackages = require("../../../components/getPackages.js")
 const getMembersFromPortal = require("../../../components/getMembersFromPortal")

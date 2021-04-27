@@ -5,7 +5,7 @@ Module workflow:
     2. Generates S2P download token link
     3. Redirects to link at *.mediashuttle.com
 */
-const { portalMapping } = require('../../../components/config')
+const { portalMapping } = require('../../../config')
 // const { getPortals, getPortalsPackages, getPortalsPackagesFiles, generateWebToken } = require('@concentricity/media_shuttle_components')
 const getPortals = require("../../../components/getPortals.js")
 const getPackages = require("../../../components/getPackages.js")

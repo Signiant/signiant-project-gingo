@@ -1,4 +1,4 @@
-const config = require('./config');
+const config = require('../config');
 var MediaShuttleApi = require('media_shuttle_api');
 var defaultClient = MediaShuttleApi.ApiClient.instance;
 var ApiKey = defaultClient.authentications['ApiKey'];

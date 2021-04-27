@@ -73,7 +73,7 @@ Lambda Policy, API Gateway, SES
    registrationKey=*yourSubmitPortalMetadataRegistrationKey* // Form Reg Key
    apiKey=*yourMediaShuttleApiKey* // Your MS API Key
 
-5. Configure the components/config.js file:
+5. Configure the config.js file:
 
    module.exports.settings = {
       apiUrl: 'https://api.mediashuttle.com/v1',   // Do not change

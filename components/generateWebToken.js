@@ -62,8 +62,8 @@ module.exports = async (options) => {
 
    let params = {
       method: 'POST',
-      headers: { Authorization: process.env.MS_API_KEY },
-      url: config.api.apiUrl +
+      headers: { Authorization: config.keys.MS_API_KEY },
+      url: config.settings.apiUrl +
          '/portals/' + portalId +
          '/packages/' + newPackageId +
          '/tokens',

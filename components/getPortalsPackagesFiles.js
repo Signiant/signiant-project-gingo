@@ -1,8 +1,8 @@
-require('dotenv').config()
+const config = require('./config');
 var MediaShuttleApi = require('media_shuttle_api');
 var defaultClient = MediaShuttleApi.ApiClient.instance;
 var ApiKey = defaultClient.authentications['ApiKey'];
-ApiKey.apiKey = process.env.MS_API_KEY
+ApiKey.apiKey = config.keys.MS_API_KEY
 
 module.exports = (portalId, packageId) => {
     return new Promise ((resolve, reject) => {

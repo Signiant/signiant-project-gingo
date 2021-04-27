@@ -1,6 +1,7 @@
+const config = require('./config');
 const querystring = require('querystring');
 const { generateSignedUrl } = require('../../../components/generateSignedUrl')
-const registrationKey = process.env.registrationKey;
+const registrationKey = config.keys.registrationKey;
 
 module.exports.processController = (req, res) => {
     const form = querystring.parse(req.body);

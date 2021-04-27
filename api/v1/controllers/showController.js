@@ -1,7 +1,8 @@
+const config = require('./config');
 const rp = require('request-promise');
 const axios = require('axios');
 const ejs = require('ejs');
-const registrationKey = process.env.registrationKey;
+const registrationKey = config.keys.registrationKey;
 const { generateSignedUrl } = require('../../../components/generateSignedUrl')
 const formUrl = process.env.formUrl;
 

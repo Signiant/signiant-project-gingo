@@ -21,8 +21,6 @@ module.exports.requestController = async (req, res) => {
     // find and retrieve upload portal details
     const accountsPortals = await getPortals()
     
-    // console.log('accountsPortals', accountsPortals)
-    // const uploadPortal = accountsPortals.data.find(item => {
     const uploadPortal = accountsPortals.items.find(item => portalId === item.id)
 
     const uploadPortalUrl = uploadPortal.url

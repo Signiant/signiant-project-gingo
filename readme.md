@@ -70,7 +70,6 @@ Lambda Policy, API Gateway, SES
       
 4. Configure your Node ENV:
 
-   registrationKey=*yourSubmitPortalMetadataRegistrationKey* // Form Reg Key
    apiKey=*yourMediaShuttleApiKey* // Your MS API Key
 
 5. Configure the config.js file:
@@ -81,8 +80,7 @@ Lambda Policy, API Gateway, SES
    }
 
    module.exports.keys = {
-      MS_API_KEY=process.env.MS_API_KEY,           // Do not change
-      registrationKey=process.env.registrationKey, // Do not change
+      MS_API_KEY=process.env.MS_API_KEY            // Do not change
    }
 
    module.exports.portalMapping = [
@@ -91,11 +89,12 @@ Lambda Policy, API Gateway, SES
          uploadUrl: "submit_portal_name.mediashuttle.com", // The name of your submit portal for uploading
          downloadUrl: "share_portal_name.mediashuttle.com", // The name of your share portal for downloading
          expirationHours: 168, // Files can not be downloaded after 7 days
-         senderEmail: "sreynolds@signiant.com", // The user account the files will come from
+         senderEmail: "user@domain.com", // The user account the files will come from
          senderName: "Gingo One Admin", // The name of the user 
          emailSubject: "Gingo One has new package available to download", // Email subject
          emailBody: "Click below to download the package:", // Email body
-         requestLinkUrl: "https://this_applications_url/request/" // This applications url and /request endpoint
+         requestLinkUrl: "https://this_applications_url/request/", // This applications url and /request endpoint
+         registrationKey=*yourSubmitPortalMetadataRegistrationKey* // Form Reg Key
       } // This application can service multiple workflows from same config
    ]
 

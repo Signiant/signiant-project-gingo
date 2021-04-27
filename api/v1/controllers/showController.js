@@ -1,10 +1,8 @@
-const config = require('./config');
+const config = require('../../../config');
 const rp = require('request-promise');
-const axios = require('axios');
 const ejs = require('ejs');
-const registrationKey = config.keys.registrationKey;
 const { generateSignedUrl } = require('../../../components/generateSignedUrl')
-const formUrl = process.env.formUrl;
+
 
 module.exports.showController = async (req, res) => {
 
@@ -15,9 +13,18 @@ module.exports.showController = async (req, res) => {
     */
 
     const portalPackageUrl = req.body.redirectUrl.replace(/\/metadata$/, '');
+    const formUrl = portalPackageUrl + '/show';
+    const portalMapping = config.portalMapping
+
+    // lookup portal mapping to determine portal app settings
+    const mapping = portalMapping.find(item => {
+        if (portalPackageUrl === item.uploadUrl) {
+            return item
+        }
+    })
 
     // Generate a signed url for the above using the portal registration key.
-    const signedPortalPackageUrl = generateSignedUrl(portalPackageUrl, '', registrationKey);
+    const signedPortalPackageUrl = generateSignedUrl(portalPackageUrl, '', mapping.registrationKey);
 
     setTimeout(() => {
         rp.get(signedPortalPackageUrl)

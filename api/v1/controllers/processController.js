@@ -1,9 +1,6 @@
-const config = require('./config');
+const config = require('../../../config');
 const querystring = require('querystring');
 const { generateSignedUrl } = require('../../../components/generateSignedUrl')
-
-
-
 
 module.exports.processController = (req, res) => {
 

@@ -6,16 +6,17 @@ const { generateSignedUrl } = require('../../../components/generateSignedUrl')
 
 
 module.exports.processController = (req, res) => {
-    
+
     // lookup portal mapping to determine portal app settings
     const portalPackageUrl = req.body.redirectUrl.replace(/\/metadata$/, '');
     console.log('processController', portalPackageUrl)
     const portalMapping = config.portalMapping
     const mapping = portalMapping.find(item => {
         if (portalPackageUrl === item.uploadUrl) {
-        return item
-    }
-    
+            return item
+        }
+    })
+
     const registrationKey = mapping.registrationKey;
 
     const form = querystring.parse(req.body);

@@ -103,6 +103,10 @@ Lambda Policy, API Gateway, SES
    node install
    npm start
 
+7. Create a webhook request for your Submit portal
+
+   url: applicationHost/webhook/upload
+
 7. Configure what users will recieve emails when someone uploaded files. In the Share portal add the user members.
 
 8. Customize the metadata collection from as you see fit from public/form.html

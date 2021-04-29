@@ -6,7 +6,6 @@ Module workflow:
     3. Redirects to link at *.mediashuttle.com
 */
 const { portalMapping } = require('../../../config')
-// const { getPortals, getPortalsPackages, getPortalsPackagesFiles, generateWebToken } = require('@concentricity/media_shuttle_components')
 const getPortals = require("../../../components/getPortals.js")
 const getPackages = require("../../../components/getPackages.js")
 const getPortalsPackagesFiles = require("../../../components/getPortalsPackagesFiles.js")
@@ -14,12 +13,14 @@ const generateWebToken = require("../../../components/generateWebToken.js")
 
 module.exports.requestController = async (req, res) => {
     
+    console.log('requestController started')
     // extract the keys from formatted email request format: /request/:key (portalId.packageId)
     const portalId = req.params.key.substring(0, 36)
     const packageId = req.params.key.substring(37, 59)
 
     // find and retrieve upload portal details
     const accountsPortals = await getPortals()
+    consolg.log('accounts portals', accountsPortals)
     
     const uploadPortal = accountsPortals.items.find(item => portalId === item.id)
 

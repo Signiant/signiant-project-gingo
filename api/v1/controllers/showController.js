@@ -37,6 +37,7 @@ module.exports.showController = async (req, res) => {
         rp.get(signedPortalPackageUrl)
             .then(portalPackage => {
                 let portalPackageJson = JSON.parse(portalPackage);
+                console.log('portalPackageJson', portalPackageJson);
                 return rp.get(formUrl)
                     .then(form => {
                         console.log('showController req.body.redirectUrl', req.body.redirectUrl)

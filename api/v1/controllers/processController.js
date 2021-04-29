@@ -23,7 +23,7 @@ module.exports.processController = (req, res) => {
 
     const registrationKey = mapping.registrationKey;
 
-    console.log('processController 2', portalPackageUrl, req.body, portalHost, mapping, registrationKey)
+    console.log('processController 2', req.body, form, portalHost, mapping, registrationKey)
 
     const signedUrl = generateSignedUrl(form.redirectUrl, req.body, registrationKey);
     res.set('Location', signedUrl);

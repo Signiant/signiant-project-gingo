@@ -4,12 +4,12 @@ const { generateSignedUrl } = require('../../../components/generateSignedUrl')
 
 module.exports.processController = (req, res) => {
 
-    let body = JSON.parse(req.body)
-    console.log('JSON req.body', json)
+    console.log('req', req)
+    //console.log('JSON req.body', json)
     // lookup portal mapping to determine portal app settings
     const portalPackageUrl = unescape(body.redirectUrl.replace(/\/metadata$/, ''));
-    console.log('portalPacakgeUrl', portalPackageUrl)
-
+    //console.log('portalPacakgeUrl', portalPackageUrl)
+break
     // lookup portal mapping to determine portal app settings
     const portalDomain = new URL(portalPackageUrl);
     const portalHost = portalDomain.host

@@ -11,8 +11,6 @@ module.exports.processController = (req, res) => {
     const portalDomain = new URL(portalPackageUrl);
     const portalHost = portalDomain.host
     const portalMapping = config.portalMapping
-
-    console.log('processController:', portalPackageUrl, portalHost)
     
     const mapping = portalMapping.find(item => {
         if (portalHost === item.uploadUrl) {
@@ -21,6 +19,8 @@ module.exports.processController = (req, res) => {
     })
 
     const registrationKey = mapping.registrationKey;
+
+    console.log('showController:', portalPackageUrl, req.body, portalHost, mapping, registrationKey)
 
     const form = querystring.parse(req.body);
     const signedUrl = generateSignedUrl(form.redirectUrl, req.body, registrationKey);

@@ -4,9 +4,9 @@ const { generateSignedUrl } = require('../../../components/generateSignedUrl')
 
 module.exports.processController = (req, res) => {
 
-    console.log('processController', req.body)
+    console.log('processController', unescape(req.body))
     // lookup portal mapping to determine portal app settings
-    const portalPackageUrl = req.body.redirectUrl.replace(/\/metadata$/, '');
+    const portalPackageUrl = unescape(req.body.redirectUrl.replace(/\/metadata$/, ''));
     
     // lookup portal mapping to determine portal app settings
     const portalDomain = new URL(portalPackageUrl);

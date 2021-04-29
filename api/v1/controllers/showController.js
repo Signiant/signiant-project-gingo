@@ -16,6 +16,7 @@ module.exports.showController = async (req, res) => {
     const formUrl = portalPackageUrl + '/show';
     const portalMapping = config.portalMapping
 
+    console.log('showController:', portalPackageUrl, formUrl, portalPackageUrl)
     // lookup portal mapping to determine portal app settings
     const mapping = portalMapping.find(item => {
         if (portalPackageUrl === item.uploadUrl) {

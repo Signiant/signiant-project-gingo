@@ -26,7 +26,7 @@ module.exports.showController = async (req, res) => {
         }
     })
 
-    const formUrl = 'https://' + mapping.applicationHost + '/form';
+    const formUrl = mapping.applicationHost + '/form';
 
     console.log('showController:', portalPackageUrl, portalHost, mapping, formUrl)
 

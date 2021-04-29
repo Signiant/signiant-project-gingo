@@ -4,6 +4,7 @@ const { generateSignedUrl } = require('../../../components/generateSignedUrl')
 
 module.exports.processController = (req, res) => {
 
+    console.log('processController', req.body)
     // lookup portal mapping to determine portal app settings
     const portalPackageUrl = req.body.redirectUrl.replace(/\/metadata$/, '');
     
@@ -20,7 +21,7 @@ module.exports.processController = (req, res) => {
 
     const registrationKey = mapping.registrationKey;
 
-    console.log('showController:', portalPackageUrl, req.body, portalHost, mapping, registrationKey)
+    console.log('processController 2', portalPackageUrl, req.body, portalHost, mapping, registrationKey)
 
     const form = querystring.parse(req.body);
     const signedUrl = generateSignedUrl(form.redirectUrl, req.body, registrationKey);

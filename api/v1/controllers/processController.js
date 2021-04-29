@@ -9,7 +9,7 @@ module.exports.processController = (req, res) => {
     // lookup portal mapping to determine portal app settings
     const portalPackageUrl = unescape(body.redirectUrl.replace(/\/metadata$/, ''));
     //console.log('portalPacakgeUrl', portalPackageUrl)
-break
+
     // lookup portal mapping to determine portal app settings
     const portalDomain = new URL(portalPackageUrl);
     const portalHost = portalDomain.host

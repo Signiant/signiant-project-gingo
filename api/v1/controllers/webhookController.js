@@ -13,6 +13,8 @@ const getPackages = require("../../../components/getPackages.js")
 const getMembersFromPortal = require("../../../components/getMembersFromPortal")
 
 module.exports.webhookController = async (req, res) => {
+
+    console.log('webHookController', req.body)
     
     // retrieve webhook payload details
     const { payload } = req.body
@@ -28,7 +30,7 @@ module.exports.webhookController = async (req, res) => {
     const downloadPortalId = portalInfo.items[0].id
         
     // retrieve destination portal emails
-    const getDestinationEmails = async (portalId) => {
+    const getDestinationEmails = async (downloadPortalId) => {
         try {
             let emailArray = await getMembersFromPortal(downloadPortalId)
             let emailsOnly = []

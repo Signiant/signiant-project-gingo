@@ -20,8 +20,6 @@ module.exports.showController = async (req, res) => {
     const portalHost = portalDomain.host
     const portalMapping = config.portalMapping
 
-    console.log('showController:', portalPackageUrl, portalHost)
-    
     const mapping = portalMapping.find(item => {
         if (portalHost === item.uploadUrl) {
             return item
@@ -29,6 +27,8 @@ module.exports.showController = async (req, res) => {
     })
 
     const formUrl = 'https://' + mapping.applicationHost + '/form';
+
+    console.log('showController:', portalPackageUrl, portalHost, mapping, formUrl)
 
     // Generate a signed url for the above using the portal registration key.
     const signedPortalPackageUrl = generateSignedUrl(portalPackageUrl, '', mapping.registrationKey);

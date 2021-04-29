@@ -93,7 +93,7 @@ Lambda Policy, API Gateway, SES
          senderName: "Gingo One Admin", // The name of the user 
          emailSubject: "Gingo One has new package available to download", // Email subject
          emailBody: "Click below to download the package:", // Email body
-         requestLinkUrl: "https://this_applications_url/request/", // This applications url and /request endpoint
+         applicationHost: "https://this_applications_url", // This endpoint serving this application
          registrationKey=*yourSubmitPortalMetadataRegistrationKey* // Form Reg Key
       } // This application can service multiple workflows from same config
    ]

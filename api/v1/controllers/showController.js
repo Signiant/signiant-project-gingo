@@ -15,19 +15,20 @@ module.exports.showController = async (req, res) => {
     // Used for generating sign URL
     const portalPackageUrl = req.body.redirectUrl.replace(/\/metadata$/, '');
 
-    // Lookup portal matching
+    // lookup portal mapping to determine portal app settings
     const portalDomain = new URL(portalPackageUrl);
     const portalHost = portalDomain.host
-    const formUrl = portalHost + '/show';
     const portalMapping = config.portalMapping
 
-    console.log('showController:', portalPackageUrl, portalHost, formUrl, )
-    // lookup portal mapping to determine portal app settings
+    console.log('showController:', portalPackageUrl, portalHost)
+    
     const mapping = portalMapping.find(item => {
         if (portalHost === item.uploadUrl) {
             return item
         }
     })
+
+    const formUrl = 'https://' + mapping.applicationHost + '/show';
 
     // Generate a signed url for the above using the portal registration key.
     const signedPortalPackageUrl = generateSignedUrl(portalPackageUrl, '', mapping.registrationKey);

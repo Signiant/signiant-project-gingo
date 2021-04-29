@@ -6,10 +6,16 @@ module.exports.processController = (req, res) => {
 
     // lookup portal mapping to determine portal app settings
     const portalPackageUrl = req.body.redirectUrl.replace(/\/metadata$/, '');
-    console.log('processController', portalPackageUrl)
+    
+    // lookup portal mapping to determine portal app settings
+    const portalDomain = new URL(portalPackageUrl);
+    const portalHost = portalDomain.host
     const portalMapping = config.portalMapping
+
+    console.log('processController:', portalPackageUrl, portalHost)
+    
     const mapping = portalMapping.find(item => {
-        if (portalPackageUrl === item.uploadUrl) {
+        if (portalHost === item.uploadUrl) {
             return item
         }
     })

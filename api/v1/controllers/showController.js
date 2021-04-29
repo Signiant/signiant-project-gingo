@@ -28,7 +28,7 @@ module.exports.showController = async (req, res) => {
         }
     })
 
-    const formUrl = 'https://' + mapping.applicationHost + '/show';
+    const formUrl = 'https://' + mapping.applicationHost + '/form';
 
     // Generate a signed url for the above using the portal registration key.
     const signedPortalPackageUrl = generateSignedUrl(portalPackageUrl, '', mapping.registrationKey);

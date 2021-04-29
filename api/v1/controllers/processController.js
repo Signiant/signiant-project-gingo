@@ -6,10 +6,8 @@ module.exports.processController = (req, res) => {
 
     const form = querystring.parse(req.body);
 
-    console.log('req', req)
     //console.log('JSON req.body', json)
     // lookup portal mapping to determine portal app settings
-    const portalPackageUrl = unescape(form.redirectUrl.replace(/\/metadata$/, ''));
     //console.log('portalPacakgeUrl', portalPackageUrl)
 
     // lookup portal mapping to determine portal app settings

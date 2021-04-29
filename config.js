@@ -20,7 +20,6 @@ module.exports.portalMapping = [
         emailSubject: "Gingo One has new package available to download",
         emailBody: "Click below to download the package:",
         applicationHost: "https://ms-metadata-distribute.herokuapp.com",
-        requestLinkUrl: "https://ms-metadata-distribute.herokuapp.com/request/",
         registrationKey: "548dee83-3be1-4afa-ba54-0fc54cfa936b"
     },
     {
@@ -32,8 +31,7 @@ module.exports.portalMapping = [
         senderName: "Gingo One Admin",
         emailSubject: "Gingo One has new package available to download",
         emailBody: "Click below to download the package:",
-        applicationHost: "https://ms-metadata-distribute.herokuapp.com",
-        requestLinkUrl: "https://ms-metadata-distribute-dev.herokuapp.com/request/",
+        applicationHost: "https://ms-metadata-distribute-dev.herokuapp.com",
         registrationKey: "44143263-0170-4c6e-b85c-bd23d422bf7f"
     }
 ]

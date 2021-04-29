@@ -12,8 +12,10 @@ module.exports.showController = async (req, res) => {
     3. The package endpoint url is the same as the redirectUrl without the /metadata suffix.
     */
 
-    const portalPackageUrl = req.body.redirectUrl.replace(/\/metadata$/, '');
-    const formUrl = portalPackageUrl + '/show';
+    const portalPackageUrl = new URL(req.body.redirectUrl);
+    console.log('portalPacakgeUrl', portalPackageUrl)
+    const portalDomain = portalPackageUrl.hostname
+    const formUrl = portalDomain + '/show';
     const portalMapping = config.portalMapping
 
     console.log('showController:', portalPackageUrl, formUrl, portalPackageUrl)

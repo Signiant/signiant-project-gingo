@@ -1,19 +1,26 @@
 # Media Shuttle submit with metadata, send download link to portal members
 
-# project name: gingo
+# project name: Gingo
+## Node.js
 
 ## Scott Reynolds, Feb 25 2021
 ## Updated April 27, 2021
 
-
+### Seee gingo_diagram.png ###
 
 **This application requires a subscription to Media Shuttle with Automation API and Metadata.**
 
-   This application utilizes the Metadata feature of Submit portal to request metadata about the submitted files. Once files are uploaded emails are sent to an associated Share portal's members. Those users then click on the email link to request the files to download. AWS SES is used to send emails.
+   This application utilizes the Metadata feature of Submit portal to request metadata about the submitted files. Once files are uploaded emails are sent to an associated Share portal's members including the metadata. Those users then click on the email link to request the files to download. AWS SES is used to send emails.
 
-   Media Shuttle SaaS must be able to connect to this application from the Internet. You ust host your application on a platform that can support this. Heroku or AWS are sample platform infrastructures that can serve this function.
+   Media Shuttle SaaS must be able to connect to this application from the Internet. Heroku or AWS are sample platform infrastructures that can serve this function.
    
    Security is open in this portal design and you can change the portal settings to match your security needs.
+
+**This application uses the Media Shuttle API Client**
+
+This repository is imported from the package.json file during NPM install
+
+https://github.com/scottdavidreynolds/media_shuttle_api#1.13.3
 
 **Setup AWS Role and Access Keys**
 
@@ -45,7 +52,7 @@ Lambda Policy, API Gateway, SES
 
    Determine these names and create the portals before proceeding. Both portals must be assigned to the same storage and folder.
 
-   In manage.mediashuttle.com select your Submit portal, Security, Authentication and chagne to No Login if you do no want users to login before uploading files.
+   In manage.mediashuttle.com select your Submit portal, Security, Authentication and change to No Login if you do no want users to login before uploading files to the Submit portal.
 
 2. Update your https://submit_portal_name/admin
 
@@ -74,7 +81,7 @@ Lambda Policy, API Gateway, SES
 
 5. Configure the config.js file:
 
-   module.exports.settings = {
+   ```module.exports.settings = {
       apiUrl: 'https://api.mediashuttle.com/v1',   // Do not change
       AWS_REGION=process.env.AWS_REGION            // Do not change
    }
@@ -86,32 +93,47 @@ Lambda Policy, API Gateway, SES
    module.exports.portalMapping = [
       {
          name: "descriptor", // Enter a name for this portal workflow              
-         uploadUrl: "submit_portal_name.mediashuttle.com", // The name of your submit portal for uploading
-         downloadUrl: "share_portal_name.mediashuttle.com", // The name of your share portal for downloading
+         uploadUrl: "gingo-one-upload.mediashuttle.com", // The name of your submit portal for uploading
+         downloadUrl: gingo-one-download.mediashuttle.com", // The name of your share portal for downloading
          expirationHours: 168, // Files can not be downloaded after 7 days
          senderEmail: "user@domain.com", // The user account the files will come from
          senderName: "Gingo One Admin", // The name of the user 
          emailSubject: "Gingo One has new package available to download", // Email subject
          emailBody: "Click below to download the package:", // Email body
-         applicationHost: "https://this_applications_url", // This endpoint serving this application
+         applicationHost: "https://this_applications_url", // This endpoint serving this application including https:// prefix
          registrationKey=*yourSubmitPortalMetadataRegistrationKey* // Form Reg Key
       } // This application can service multiple workflows from same config
-   ]
+   ]```
 
 6. Deploy
-   
-   node install
+
+   npm install
    npm start
 
 7. Create a webhook request for your Submit portal
 
-   url: applicationHost/webhook/upload
+   url: %applicationHost%/webhook/upload
 
-7. Configure what users will recieve emails when someone uploaded files. In the Share portal add the user members.
+7. Configure which users will recieve emails when files are uploaded by adding the users as Members to the Share portal.
 
-8. Customize the metadata collection from as you see fit from public/form.html
+8. Customize the metadata collection form as required from public/form.html and apply the cooresponding JSON in webhookController.js metadataFormatted keys and values.
 
-Using the system:
+   In form.html insure the form name key matches the JSON element. ie. 
+   
+   form.html
+   ```
+      name="senderName"
+   ```
+   webhookController.js
+   ```
+      // standardize order of metadata keys
+      let metadataFormatted = {
+         'Sender name': packageData.metadata.senderName,
+         ...
+      }
+   ```
 
-User1 opens https://submit_portal.mediashuttle.com and selects files to upload and send to recipients of share_portal. After they select Add Info a metadata form will be presented. After they Submit the files the recipients will get an email showing the metadata entered and a list of the files to download.
+## Using the system: ##
+
+User1 opens https://gingo-one-upload.mediashuttle.com Submit portal and selects files to upload and send to recipients of share portal. After they select Add Info your metadata form will be presented. After they Submit the files the recipients will get an email showing the metadata entered and a list of the files to download. Clicking the download link will generate a download link and redirect the user to the Share portal download page.
 

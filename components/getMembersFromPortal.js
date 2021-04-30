@@ -1,5 +1,5 @@
 const config = require('../config');
-var MediaShuttleApi = require('media_shuttle_api');
+var MediaShuttleApi = require('media_shuttle_api@1.13.3');
 var defaultClient = MediaShuttleApi.ApiClient.instance;
 var ApiKey = defaultClient.authentications['ApiKey'];
 ApiKey.apiKey = config.keys.MS_API_KEY

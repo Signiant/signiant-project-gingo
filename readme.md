@@ -110,13 +110,14 @@ Lambda Policy, API Gateway, SES
 6. Deploy
 
    npm install
+
    npm start
 
 7. Create a webhook subscription for your Submit portal
 
    This function is available from https://developer.signiant.com under Media Shuttle API. Auto-provisioning of this will be added to this application in the future. As this is a one time setting it is inneficient to make the API call each time the application executes.
 
-   url: %applicationHost%/webhook/upload
+   **url: %applicationHost%/webhook/upload**
 
 7. Configure which users will recieve emails when files are uploaded by adding the users as Members to the Share portal.
 

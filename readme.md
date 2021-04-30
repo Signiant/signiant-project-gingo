@@ -81,7 +81,8 @@ Lambda Policy, API Gateway, SES
 
 5. Configure the config.js file:
 
-   ```module.exports.settings = {
+   ```
+   module.exports.settings = {
       apiUrl: 'https://api.mediashuttle.com/v1',   // Do not change
       AWS_REGION=process.env.AWS_REGION            // Do not change
    }
@@ -103,7 +104,8 @@ Lambda Policy, API Gateway, SES
          applicationHost: "https://this_applications_url", // This endpoint serving this application including https:// prefix
          registrationKey=*yourSubmitPortalMetadataRegistrationKey* // Form Reg Key
       } // This application can service multiple workflows from same config
-   ]```
+   ]
+   ```
 
 6. Deploy
 

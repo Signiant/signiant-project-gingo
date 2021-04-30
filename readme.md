@@ -81,7 +81,8 @@ Lambda Policy, API Gateway, SES
 
 5. Configure the config.js file:
 
-   ```module.exports.settings = {
+   ```
+   module.exports.settings = {
       apiUrl: 'https://api.mediashuttle.com/v1',   // Do not change
       AWS_REGION=process.env.AWS_REGION            // Do not change
    }
@@ -103,14 +104,17 @@ Lambda Policy, API Gateway, SES
          applicationHost: "https://this_applications_url", // This endpoint serving this application including https:// prefix
          registrationKey=*yourSubmitPortalMetadataRegistrationKey* // Form Reg Key
       } // This application can service multiple workflows from same config
-   ]```
+   ]
+   ```
 
 6. Deploy
 
    npm install
    npm start
 
-7. Create a webhook request for your Submit portal
+7. Create a webhook subscription for your Submit portal
+
+   This function is available from https://developer.signiant.com under Media Shuttle API. Auto-provisioning of this will be added to this application in the future. As this is a one time setting it is inneficient to make the API call each time the application executes.
 
    url: %applicationHost%/webhook/upload
 

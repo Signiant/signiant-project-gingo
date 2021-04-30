@@ -29,7 +29,7 @@ Create a user and access keys to allow this application access to interact with 
 Create a policy for the following services. ie., policy name: signiant_mediashuttle_gingo_policy
 
 Lambda Policy, API Gateway, SES
-
+```
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -44,7 +44,7 @@ Lambda Policy, API Gateway, SES
         }
     ]
 }
-
+```
 1.  Decide on the name of your workflow and create two portals at https://manage.mediashuttle.com. One will be a Submit portal and one will be a Share portal. For example you can create:
 
    https://gingo-one-upload.mediashuttle.com (Submit) 

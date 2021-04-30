@@ -1,12 +1,10 @@
 # Media Shuttle submit with metadata, send download link to portal members
 
-# project name: Gingo
-## Node.js
+### Project: Gingo
+### Node.js
+### Scott Reynolds
 
-## Scott Reynolds, Feb 25 2021
-## Updated April 27, 2021
-
-### Seee gingo_diagram.png ###
+### See gingo_diagram.png ###
 
 **This application requires a subscription to Media Shuttle with Automation API and Metadata.**
 

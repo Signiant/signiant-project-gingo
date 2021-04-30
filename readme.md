@@ -77,14 +77,16 @@ Lambda Policy, API Gateway, SES
       
 4. Configure your Node ENV:
 
-   apiKey=*yourMediaShuttleApiKey* // Your MS API Key
+   apiKey=*yourMediaShuttleApiKey*                 // Your MS API Key
+   AWS_ACCESS_KEY_ID=%your_access_key%             // Your AWS Credentials
+   AWS_SECRET_ACCESS_KEY=%your_secret_access_key%  // Your AWS Credentials
 
 5. Configure the config.js file:
 
    ```
    module.exports.settings = {
       apiUrl: 'https://api.mediashuttle.com/v1',   // Do not change
-      AWS_REGION=process.env.AWS_REGION            // Do not change
+      AWS_REGION='us-west-2'                       // Your AWS region for SES service
    }
 
    module.exports.keys = {
@@ -93,19 +95,19 @@ Lambda Policy, API Gateway, SES
 
    module.exports.portalMapping = [
       {
-         name: "descriptor", // Enter a name for this portal workflow              
-         uploadUrl: "gingo-one-upload.mediashuttle.com", // The name of your submit portal for uploading
+         name: "descriptor",                                // Enter a name for this workflow
+         uploadUrl: "gingo-one-upload.mediashuttle.com",    // The name of your submit portal for uploading
          downloadUrl: gingo-one-download.mediashuttle.com", // The name of your share portal for downloading
-         expirationHours: 168, // Files can not be downloaded after 7 days
-         senderEmail: "user@domain.com", // The user account the files will come from
-         senderName: "Gingo One Admin", // The name of the user 
-         emailSubject: "Gingo One has new package available to download", // Email subject
+         expirationHours: 168,                              // This package expiration feature is not implemented
+         senderEmail: "user@domain.com",                    // The user account the files will come from
+         emailSubject: "Gingo One has new package available to download",  // Email subject
          emailBody: "Click below to download the package:", // Email body
-         applicationHost: "https://this_applications_url", // This endpoint serving this application including https:// prefix
-         registrationKey=*yourSubmitPortalMetadataRegistrationKey* // Form Reg Key
-      } // This application can service multiple workflows from same config
+         applicationHost: "https://this_applications_url",  // This endpoint serving this application including https:// prefix
+         registrationKey=*yourSubmitPortalMetadataRegistrationKey*         // Form Reg Key
+      } 
    ]
    ```
+   This application can service multiple workflows from same config by adding another portalMapping object to the array.
 
 6. Deploy
 

@@ -12,6 +12,8 @@ const getPortalsPackagesFiles = require("../../../components/getPortalsPackagesF
 const generateWebToken = require("../../../components/generateWebToken.js")
 
 module.exports.requestController = async (req, res) => {
+
+    console.log('requestController', req)
     
     // extract the keys from formatted email request format: /request/:key (portalId.packageId)
     const portalId = req.params.key.substring(0, 36)

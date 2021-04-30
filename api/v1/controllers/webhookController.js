@@ -13,8 +13,6 @@ const getPackages = require("../../../components/getPackages.js")
 const getMembersFromPortal = require("../../../components/getMembersFromPortal")
 
 module.exports.webhookController = async (req, res) => {
-
-    console.log('webHookController', req.body)
     
     // retrieve webhook payload details
     const { payload } = req.body

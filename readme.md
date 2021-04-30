@@ -1,15 +1,35 @@
 # Media Shuttle submit with metadata, send download link to portal members
-# project name: gingo
+
+# project name: Gingo
+## Node.js
+
 ## Scott Reynolds, Feb 25 2021
+## Updated April 27, 2021
 
-**AWS Role and Access Keys**
+### Seee gingo_diagram.png ###
 
-Create a user and access keys to allow this application access to interact with the necessary AWS resources. ie., User name: signiant_mediashuttle_gingo_user
+**This application requires a subscription to Media Shuttle with Automation API and Metadata.**
+
+   This application utilizes the Metadata feature of Submit portal to request metadata about the submitted files. Once files are uploaded emails are sent to an associated Share portal's members including the metadata. Those users then click on the email link to request the files to download. AWS SES is used to send emails.
+
+   Media Shuttle SaaS must be able to connect to this application from the Internet. Heroku or AWS are sample platform infrastructures that can serve this function.
+   
+   Security is open in this portal design and you can change the portal settings to match your security needs.
+
+**This application uses the Media Shuttle API Client**
+
+This repository is imported from the package.json file during NPM install
+
+https://github.com/scottdavidreynolds/media_shuttle_api#1.13.3
+
+**Setup AWS Role and Access Keys**
+
+Create a user and access keys to allow this application access to interact with the necessary AWS resources. ie., User name: signiant_mediashuttle_user_name
 
 Create a policy for the following services. ie., policy name: signiant_mediashuttle_gingo_policy
 
 Lambda Policy, API Gateway, SES
-
+```
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -24,29 +44,96 @@ Lambda Policy, API Gateway, SES
         }
     ]
 }
+```
+1.  Decide on the name of your workflow and create two portals at https://manage.mediashuttle.com. One will be a Submit portal and one will be a Share portal. For example you can create:
 
+   https://gingo-one-upload.mediashuttle.com (Submit) 
+   https://gingo-one-download.mediashuttle.com (Share)
 
-**This application requires a subscription to Media Shuttle with Metadata.**
+   Determine these names and create the portals before proceeding. Both portals must be assigned to the same storage and folder.
 
-   This code utilizes the Metadata feature of submit portals and the Media Shuttle Management API **/portal/*portalId*/package/*packageId*** method to retrieve the metadata about the submitted files and return a form with that dynamic content. 
+   In manage.mediashuttle.com select your Submit portal, Security, Authentication and change to No Login if you do no want users to login before uploading files to the Submit portal.
 
-   Media Shuttle SaaS must be able to connect to your form from the Internet so it is required to host your application on a platform that can support this. Heroku is a sample application infrastructure that can provide Node.js containers.
+2. Update your https://submit_portal_name/admin
 
-1. First configure your Node env with:
+   Metadata: Metadata provider URL: https://your_application_url/show  
+   Registration key: unique_key to you will use in your Node ENV
 
-   registrationKey=*yourSubmitPortalMetadataRegistrationKey*  
-   formUrl=*yourPortalUrl*/show  
-   apiKey=*yourMediaShuttleApiKey*
+   application_url may not be know until you deploy this application.
+   /show must be included at the end of the URL.
 
-2. Configure your portal Metadata settings:
+3. Update your https://share_portal_name/admin 
 
-   Metadata provider URL: https://your_application_url/show  
-   Registration key: unique_key to use in your Node env
+   General: 
+   
+   DISABLE Send portal invitations when:
+      Members are added
+      Members are imported
 
-3. Configure metadata logic
+   DISABLE Notify senders by email when:
+      Files are sent or uploaded to storage
+      Files are received or downloaded from storage
 
-   This can be used to interact with your internal databases and applications to generate a dynamic form and store the data which is presented with EJS in formUrl public/form.html sample. Customize as necessary.
+      
+4. Configure your Node ENV:
 
-3. Run the app:
+   apiKey=*yourMediaShuttleApiKey* // Your MS API Key
 
-   node app.js
+5. Configure the config.js file:
+
+   ```module.exports.settings = {
+      apiUrl: 'https://api.mediashuttle.com/v1',   // Do not change
+      AWS_REGION=process.env.AWS_REGION            // Do not change
+   }
+
+   module.exports.keys = {
+      MS_API_KEY=process.env.MS_API_KEY            // Do not change
+   }
+
+   module.exports.portalMapping = [
+      {
+         name: "descriptor", // Enter a name for this portal workflow              
+         uploadUrl: "gingo-one-upload.mediashuttle.com", // The name of your submit portal for uploading
+         downloadUrl: gingo-one-download.mediashuttle.com", // The name of your share portal for downloading
+         expirationHours: 168, // Files can not be downloaded after 7 days
+         senderEmail: "user@domain.com", // The user account the files will come from
+         senderName: "Gingo One Admin", // The name of the user 
+         emailSubject: "Gingo One has new package available to download", // Email subject
+         emailBody: "Click below to download the package:", // Email body
+         applicationHost: "https://this_applications_url", // This endpoint serving this application including https:// prefix
+         registrationKey=*yourSubmitPortalMetadataRegistrationKey* // Form Reg Key
+      } // This application can service multiple workflows from same config
+   ]```
+
+6. Deploy
+
+   npm install
+   npm start
+
+7. Create a webhook request for your Submit portal
+
+   url: %applicationHost%/webhook/upload
+
+7. Configure which users will recieve emails when files are uploaded by adding the users as Members to the Share portal.
+
+8. Customize the metadata collection form as required from public/form.html and apply the cooresponding JSON in webhookController.js metadataFormatted keys and values.
+
+   In form.html insure the form name key matches the JSON element. ie. 
+   
+   form.html
+   ```
+      name="senderName"
+   ```
+   webhookController.js
+   ```
+      // standardize order of metadata keys
+      let metadataFormatted = {
+         'Sender name': packageData.metadata.senderName,
+         ...
+      }
+   ```
+
+## Using the system: ##
+
+User1 opens https://gingo-one-upload.mediashuttle.com Submit portal and selects files to upload and send to recipients of share portal. After they select Add Info your metadata form will be presented. After they Submit the files the recipients will get an email showing the metadata entered and a list of the files to download. Clicking the download link will generate a download link and redirect the user to the Share portal download page.
+

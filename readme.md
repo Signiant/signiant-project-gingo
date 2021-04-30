@@ -75,7 +75,7 @@ Lambda Policy, API Gateway, SES
       
 4. Configure your Node ENV:
 
-   apiKey=*yourMediaShuttleApiKey*                 // Your MS API Key
+   MS_API_KEY=*yourMediaShuttleApiKey*                 // Your MS API Key
    AWS_ACCESS_KEY_ID=%your_access_key%             // Your AWS Credentials
    AWS_SECRET_ACCESS_KEY=%your_secret_access_key%  // Your AWS Credentials
 

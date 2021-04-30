@@ -4,11 +4,11 @@
   "private": true,
   "scripts": {
     "start": "node app",
-    "startdev": "nodemon app"
+    "startdeov": "nodemon app"
   },
   "dependencies": {
     "@aws-sdk/client-ses": "^3.8.0",
-    "media_shuttle_api": "scottdavidreynolds/media_shuttle_api#1.13.3",
+    "media_shuttle_api": "https://github.com/scottdavidreynolds/media_shuttle_api/tarball/1.13.3",
     "axios": "^0.21.1",
     "crypto": "^1.0.1",
     "dotenv": "^8.2.0",

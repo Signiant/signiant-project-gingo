@@ -1,12 +1,10 @@
 # Media Shuttle submit with metadata, send download link to portal members
 
-# project name: Gingo
-## Node.js
+### Project: Gingo
+### Node.js
+### Scott Reynolds
 
-## Scott Reynolds, Feb 25 2021
-## Updated April 27, 2021
-
-### Seee gingo_diagram.png ###
+### See gingo_diagram.png ###
 
 **This application requires a subscription to Media Shuttle with Automation API and Metadata.**
 
@@ -77,7 +75,7 @@ Lambda Policy, API Gateway, SES
       
 4. Configure your Node ENV:
 
-   apiKey=*yourMediaShuttleApiKey*                 // Your MS API Key
+   MS_API_KEY=*yourMediaShuttleApiKey*                 // Your MS API Key
    AWS_ACCESS_KEY_ID=%your_access_key%             // Your AWS Credentials
    AWS_SECRET_ACCESS_KEY=%your_secret_access_key%  // Your AWS Credentials
 

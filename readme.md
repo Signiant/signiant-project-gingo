@@ -4,6 +4,9 @@
 ### Node.js
 ### Scott Reynolds
 
+## Scott Reynolds, Feb 25 2021
+## Updated May 4, 2021
+
 ### See gingo_diagram.png ###
 
 **This application requires a subscription to Media Shuttle with Automation API and Metadata.**

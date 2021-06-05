@@ -6,30 +6,19 @@ module.exports.settings = {
 }
 
 module.exports.keys = {
-    MS_API_KEY: process.env.MS_API_KEY
+    MS_API_KEY: process.env.MS_API_KEY,
+    AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
+    AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY
 }
 
 module.exports.portalMapping = [
     {
-        name: "Gingo One",
-        uploadUrl: "gingo-one-upload.mediashuttle.com",
-        downloadUrl: "gingo-one-download.mediashuttle.com",
-        expirationHours: 168,
-        senderEmail: "sreynolds@signiant.com",
-        emailSubject: "Gingo One has new package available to download",
-        emailBody: "Click below to download the package:",
-        applicationHost: "https://ms-metadata-distribute.herokuapp.com",
-        registrationKey: "548dee83-3be1-4afa-ba54-0fc54cfa936b"
-    },
-    {
-        name: "Gingo One Dev",
-        uploadUrl: "gingo-one-upload-dev.mediashuttle.com",
-        downloadUrl: "gingo-one-download-dev.mediashuttle.com",
-        expirationHours: 168,
-        senderEmail: "sreynolds@signiant.com",
-        emailSubject: "Gingo One has new package available to download",
-        emailBody: "Click below to download the package:",
-        applicationHost: "https://ms-metadata-distribute-dev.herokuapp.com",
-        registrationKey: "44143263-0170-4c6e-b85c-bd23d422bf7f"
+        name: "Junmai Dalet",
+        uploadUrl: "dalet-signiant-wv.mediashuttle.com",
+        applicationHost: "https://uighzt2fyg.execute-api.us-west-2.amazonaws.com/dev",
+        registrationKey: "1fe3b8db-e3a3-498f-a6df-a73593c95dc5",
+        s3uploadBucketName: "signiant-solutions-dalet",
+        objectNamePrefix: "metadata",
+        contentTypes: ['json']
     }
 ]

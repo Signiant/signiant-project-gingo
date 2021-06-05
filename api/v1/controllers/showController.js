@@ -5,7 +5,11 @@ const { generateSignedUrl } = require('../../../components/generateSignedUrl')
 
 
 module.exports.showController = async (req, res) => {
-
+    if (req.body) {
+        console.log('showController req.body', req.body)
+    } else {
+        console.log('showController req', req)
+    }
     /* 
     1. Extract Media Shuttle package endpoint url from the redirectUrl request body parameter passed by Media Shuttle
     2. Invoke a GET request on this url to retrieve all known package details prior displaying the metadata form.
@@ -34,12 +38,15 @@ module.exports.showController = async (req, res) => {
     setTimeout(() => {
         rp.get(signedPortalPackageUrl)
             .then(portalPackage => {
+                console.log('portalPackage', portalPackage)
                 let portalPackageJson = JSON.parse(portalPackage);
                 return rp.get(formUrl)
                     .then(form => {
                         res.send(ejs.render(form, {
+                            packageId: portalPackageJson.packageDetails.packageId,
+                            files: portalPackageJson.packageDetails.files,
                             redirectUrl: req.body.redirectUrl,
-                            senderEmail: portalPackageJson.packageDetails.sender
+                            sender: portalPackageJson.packageDetails.sender
                         }));
                     });
             })

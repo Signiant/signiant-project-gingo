@@ -1,0 +1,27 @@
+org: scottdavidreynolds
+app: signiant-solutions-junmai
+service: signiant-solutions-junmai
+useDotenv: true
+
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  region: us-west-2
+  runtime: nodejs14.x
+  lambdaHashingVersion: '20201221'
+  environment:
+    #MS_API_KEY: ${param:MS_API_KEY}
+    #X_AWS_ACCESS_KEY_ID: ${param:AWS_ACCESS_KEY_ID}
+    #X_AWS_SECRET_ACCESS_KEY: ${param:AWS_SECRET_ACCESS_KEY}
+
+functions:
+  junmai-app:
+    handler: handler.handler
+    events:
+      - http:
+          path: /{proxy+}
+          method: ANY
+
+plugins:
+  - serverless-offline

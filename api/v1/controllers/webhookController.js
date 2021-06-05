@@ -6,45 +6,29 @@ Module workflow:
     4. Sends email to receipients with the link
 */
 
-const { sendMail } = require('../../../components/sendMail')
+// const { sendMail } = require('../../../components/sendMail')
 const { portalMapping } = require('../../../config')
-const getPortals = require("../../../components/getPortals.js")
+// const getPortals = require("../../../components/getPortals.js")
 const getPackages = require("../../../components/getPackages.js")
-const getMembersFromPortal = require("../../../components/getMembersFromPortal")
+const uploadObjectToS3 = require("../../../components/uploadObjectToS3");
+// const getMembersFromPortal = require("../../../components/getMembersFromPortal")
 
-module.exports.webhookController = async (req, res) => {
+module.exports = async (req, res) => {
     
     // retrieve webhook payload details
     const { payload } = req.body
-    
+
     // lookup portal mapping to determine download portal
     const mapping = portalMapping.find(item => {
         if (payload.portalDetails.url === item.uploadUrl) {
             return item
         }
     })
-  
-    const portalInfo = await getPortals(mapping.downloadUrl)
-    const downloadPortalId = portalInfo.items[0].id
-        
-    // retrieve destination portal emails
-    const getDestinationEmails = async (downloadPortalId) => {
-        try {
-            let emailArray = await getMembersFromPortal(downloadPortalId)
-            let emailsOnly = []
-            emailArray.items.map(item => {
-                emailsOnly.push(item.email)
-            })
-            return emailsOnly
-        } catch (error) {
-            return error
-        }
-    }
-    const destinationEmails = await getDestinationEmails(downloadPortalId)
-    
+
     // retrieve package metadata
     const packageData = await getPackages(payload.portalDetails.id, payload.packageDetails.id)
     
+    console.log('pacakgeData', packageData)
     // standardize order of metadata keys
     let metadataFormatted = {
         'Sender name': packageData.metadata.senderName,
@@ -53,34 +37,25 @@ module.exports.webhookController = async (req, res) => {
         'Package contents': packageData.metadata.packageContents
     }
 
-    // convert JSON to string format
-    let metadataToString = ''
-    for (const [key, value] of Object.entries(metadataFormatted)) {
-        metadataToString += (`${key}: ${value}\n`);
+    // convert JSON to XML
+
+    // Upload metadata files to S3
+    let bucketName = mapping.s3uploadBucketName
+    let contentType = mapping.contentTypes[0]
+    let result;
+    if (contentType == 'xml' || contentType == 'XML') {
+        console.log('XML')
+        let objectName = 'metadata.xml'
+        let objectData = metadataFormatted
+        let contentType = 'application/xml'
+        result = await uploadObjectToS3(bucketName, objectName, objectData, contentType)
+    } else if (contentType == 'json' || contentType == 'JSON') {
+        console.log('JSON')
+        let objectName = 'metadata.json'
+        let objectData = metadataFormatted
+        let contentType = 'application/json'
+        result = await uploadObjectToS3(bucketName, objectName, objectData, contentType)
     }
-
-    // send email to recipients
-    let emailBody =
-        'Package metadata:\n\n' +
-        metadataToString + '\n\n' +
-        mapping.emailBody + '\n' +
-        mapping.applicationHost + "/request/" + payload.portalDetails.id + '.' + payload.packageDetails.id
-
-    const sendEmails = async () => {
-        let emailData = {
-            to: destinationEmails,
-            from: mapping.senderEmail,
-            subject: mapping.emailSubject,
-            emailBody
-        }
-        try {
-            return await sendMail(emailData)
-        } catch (error) {
-            console.log('error', error)
-            return res.status(400).json(error)
-        }
-    }
-
-    await sendEmails()
-    res.status(200).send()
+    
+    res.status(200).send(result)
 }

@@ -4,6 +4,7 @@ const { generateSignedUrl } = require('../../../components/generateSignedUrl')
 
 module.exports.processController = (req, res) => {
 
+    console.log('req.redirectUrl', req.redirectUrl)
     const form = querystring.parse(req.body);
 
     // lookup portal mapping to determine portal app settings

@@ -4,18 +4,6 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <!-- <script>
-        function validateFirstLast(){
-            var regName = /^[a-zA-Z]+ [a-zA-Z]+$/;
-            var name = document.getElementById('sender-name').value;
-            if(!regName.test(name)){
-                document.getElementById('sender-name').value='Please enter your First & Last name'
-                return false;
-            }else{
-                return true;
-            }
-        }
-    </script> -->
     <style>
         body {
             padding: 20px;
@@ -42,28 +30,61 @@
 <form class="form-horizontal" action="process" method="post" id="input-form">
     <input name="redirectUrl" type="hidden" value="<%= redirectUrl %>"/>
     <div class="form-group">
-        <label for="senderEmail" class="col-xs-3 control-label">Sender email</label>
+        <label for="sender" class="col-xs-3 control-label">Sender</label>
         <div class="col-xs-9">
-            <input type="text" class="form-control" id="senderEmail" name="senderEmail" value="<%= senderEmail %>" readonly>
+            <input type="text" class="form-control" id="sender" name="sender" value="<%= sender %>" readonly>
         </div>
     </div>
     
     <div class="form-group">
-        <label for="senderName" class="col-xs-3 control-label">Sender First and Last name</label>
+        <label for="programTitle" class="col-xs-3 control-label">Program Title</label>
         <div class="col-xs-9">
-            <input type="text" class="form-control" id="senderName" name="senderName" placeholder="First and Last name" required>
+            <input type="text" class="form-control" id="programmeTitle" name="programTitle" placeholder="Program Title">
         </div>
     </div>
     <div class="form-group">
-        <label for="showFeatureName" class="col-xs-3 control-label">Show/Feature name</label>
+        <label for="episodeTitle" class="col-xs-3 control-label">Episode Title/No.</label>
         <div class="col-xs-9">
-            <input type="text" class="form-control" id="showFeatureName" name="showFeatureName" placeholder="Show/Feature name" required>
+            <input type="text" class="form-control" id="episodeTitle" name="episodeTitle" placeholder="Episode Title">
         </div>
     </div>
     <div class="form-group">
-        <label for="packageContents" class="col-xs-3 control-label">Package contents</label>
+        <label for="synopsis" class="col-xs-3 control-label">Synopsis</label>
         <div class="col-xs-9">
-            <textarea id="package-contents" name="packageContents" class="form-control" placeholder="Description of contents" required></textarea>
+            <textarea id="synopsis" name="synopsis" class="form-control" placeholder="Synopsis"></textarea>
+        </div>
+    </div>
+    <%files.forEach(function(file){ %>
+    <div class="form-group">
+        <label for="<%= file.fileName %>" class="col-xs-3 control-label"><%= file.fileName %></label>
+        <div class="col-xs-9">
+            <select id="<%= file.fileName %>" name="<%= file.fileName %>" class="form-control">
+                <option value="" default selected></option>
+                <option value="video">Video</option>
+                <option value="audio">Audio</option>
+                <option value="story_art">Story Art</option>
+                <option value=subtitles>Subtitles</option>
+                <option value="accessibility_file">Accessibility Files</option>
+            </select>
+        </div>
+    </div>
+    <% }); %>
+    <div class="form-group">
+        <label for="originator" class="col-xs-3 control-label">Originator</label>
+        <div class="col-xs-9">
+            <input type="text" class="form-control" id="originator" name="originator" placeholder="Originator">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="distributor" class="col-xs-3 control-label">Distributor</label>
+        <div class="col-xs-9">
+            <input type="text" class="form-control" id="distributor" name="distributor" placeholder="Distributor">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="packageName" class="col-xs-3 control-label">Package ID</label>
+        <div class="col-xs-9">
+            <input type="text" class="form-control" id="packageName" name="packageName" value="<%= packageId %>" readonly>
         </div>
     </div>
     <br/>
